@@ -3,7 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // var index = require('./routes/index');
@@ -31,12 +31,12 @@ var locationSchema = new mongoose.Schema({
 
 var LocationModel = mongoose.model('location',locationSchema);
 
-app.get('/', function(req, res, next) {
+app.get('/api/', function(req, res, next) {
   res.send('working');
 });
 
 /* GET users listing. */
-app.get('/locations', function(req, res, next) {
+app.get('/api/locations', function(req, res, next) {
   LocationModel.find({},function(err,docs) {
 		if(err) {
 			res.send(err);
