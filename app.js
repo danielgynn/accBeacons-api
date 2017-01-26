@@ -3,49 +3,48 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var flash = require('connect-flash');
 
-// var index = require('./routes/index');
-// var locations = require('./routes/locations');
-
-var app = express();
-
-// Configure MongoDB database instance.
+// Start by loading up all our mongoose models and connecting.
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 
+// Import routes.
+var router = require('./routes/index');
+
+var app = express();
+
+// Set default rendering engine - TODO: remove this safely.
+app.set('view engine', 'jade');
+
+// Set headers.
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  // res.setHeader("Content-Type", "application/json");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
   next();
 });
+app.use(logger('dev'));
+app.use(bodyParser.json({ type: "application/json" }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.set('view engine', 'jade');
+// Set Passport configurations.
+app.use(session({ secret: 'shhsecret', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-var locationSchema = new mongoose.Schema({
-	name: 'string',
-	text: 'string'
-});
+// Load passport config.
+require('./config/passport')(passport);
 
-var LocationModel = mongoose.model('location',locationSchema);
-
-app.get('/api/', function(req, res, next) {
-  res.send('working');
-});
-
-/* GET users listing. */
-app.get('/api/locations', function(req, res, next) {
-  LocationModel.find({},function(err,docs) {
-		if(err) {
-			res.send(err);
-		}
-		else {
-			res.send(docs);
-		}
-	});
-});
+app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
