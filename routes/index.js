@@ -4,15 +4,20 @@ var passport = require('passport');
 var Location = require('../models/location');
 var router = express.Router();
 
+// ROUTE - index
 router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+// ROUTE - API namespaced gateway
 router.get('/api', function(req, res, next) {
-  res.json({ message: 'hooray! welcome to our api!' });
+  res.json({ message: 'Welcome to the Accessible Beacons API!' });
 });
+
+// GET API DOCS TODO
 // router.get("/api", Front.docsRequest.bind(Front));
 
+// ROUTE - all locations
 router.route('/api/locations/')
   // POST a new Location object
   .post(function(req, res) {
@@ -25,39 +30,45 @@ router.route('/api/locations/')
 
     // save the location and check for errors
     location.save(function(err) {
-       if (err)
-       res.send(err);
-
-       res.json({ message: 'Location created!' });
+       if (err) {
+         res.send(err);
+       } else {
+         res.json({ message: 'Location created!' });
+       }
      });
    })
 
    // GET all Location objects
    .get(function(req, res) {
       Location.find(function(err, locations) {
-          if (err)
-              res.send(err);
-
+        if (err) {
+          res.send(err);
+        } else {
           res.json(locations);
+        }
       });
     });
 
+// ROUTE - specific location
 router.route('/api/locations/:location_id')
   // get the Location with that id
   // (accessed at GET http://localhost:3000/api/locations/:location_id)
   .get(function(req, res) {
     Location.findById(req.params.location_id, function(err, location) {
-      if (err)
+      if (err) {
         res.send(err);
-      res.json(location);
+      } else {
+        res.json(location);
+      }
     });
   })
 
   // PUT - update a Location object
   .put(function(req, res) {
     Location.findById(req.params.location_id, function(err, location) {
-      if (err)
+      if (err) {
         res.send(err);
+      }
 
       location.name = req.param('name');
       location.text = req.param('text');
@@ -71,7 +82,20 @@ router.route('/api/locations/:location_id')
         }
       });
      });
-   });
+   })
+
+  // DELETE - delete a Location object
+  .delete(function(req, res) {
+    Location.remove({
+      _id: req.params.location_id
+    }, function(err, location) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json({ message: 'The location ' + req.params.location_id + ' has been successfully deleted' });
+      }
+    });
+  });
 
 module.exports = router;
 
