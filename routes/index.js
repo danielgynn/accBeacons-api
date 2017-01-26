@@ -17,6 +17,30 @@ router.get('/api', function(req, res, next) {
 // GET API DOCS TODO
 // router.get("/api", Front.docsRequest.bind(Front));
 
+router.route('/api/login')
+  .post(passport.authenticate('local-login', {
+
+  }))
+  .get('/login', function(req, res, next) {
+    // res.render('login.ejs', { message: req.flash('loginMessage') });
+  });
+
+router.route('/api/signup')
+  .post(passport.authenticate('local-signup', {
+    // successRedirect : '/profile', // redirect to the secure profile section
+    // failureRedirect : '/signup', // redirect back to the signup page if there is an error
+    // failureFlash : true // allow flash messages
+  }))
+
+  .get('/signup', function(req, res) {
+    res.render('signup.ejs', { message: req.flash('loginMessage') });
+  });
+
+router.get('/api/logout', function(req, res) {
+  req.logout();
+  res.redirect('/api');
+});
+
 // ROUTE - all locations
 router.route('/api/locations/')
   // POST a new Location object
