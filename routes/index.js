@@ -2,6 +2,7 @@
 var express = require('express');
 var passport = require('passport');
 var Location = require('../models/location');
+var User = require('../models/user');
 var router = express.Router();
 
 // ROUTE - index
@@ -21,7 +22,7 @@ router.route('/api/login')
   .post(passport.authenticate('local-login', {
 
   }))
-  .get('/login', function(req, res, next) {
+  .get(function(req, res, next) {
     // res.render('login.ejs', { message: req.flash('loginMessage') });
   });
 
@@ -32,14 +33,20 @@ router.route('/api/signup')
     // failureFlash : true // allow flash messages
   }))
 
-  .get('/signup', function(req, res) {
+  .get(function(req, res) {
     res.render('signup.ejs', { message: req.flash('loginMessage') });
   });
 
-router.get('/api/logout', function(req, res) {
-  req.logout();
-  res.redirect('/api');
-});
+router.route('/api/users')
+  .get(function (req, res) {
+    return res.status(200).send({ user: { id: 1, email: 'danielgynn94@gmail.com', password: 'password' }});
+  });
+
+router.route('/api/logout')
+  .get(function(req, res) {
+    req.logout();
+    res.redirect('/api');
+  });
 
 // ROUTE - all locations
 router.route('/api/locations/')
