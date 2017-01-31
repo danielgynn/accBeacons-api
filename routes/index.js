@@ -18,37 +18,93 @@ router.get('/api', function(req, res, next) {
 // GET API DOCS TODO
 // router.get("/api", Front.docsRequest.bind(Front));
 
-router.route('/api/login')
-  .post(passport.authenticate('local-login', {
+router.post('/api/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user) {
+    if (err) return next(err);
+    if (user) res.send({ access_token: user.token });
+    else res.send(404, 'Incorrect username or password.');
+  })(req, res, next);
+});
 
-  }))
-  .get(function(req, res, next) {
-    // res.render('login.ejs', { message: req.flash('loginMessage') });
-  });
+router.post('/api/signup', function(req, res, next) {
+  // Create new user
+  var user = new User();
+  user.local.email = req.param('email');
+  user.local.password = req.param('password');
 
-router.route('/api/signup')
-  .post(passport.authenticate('local-signup', {
-    // successRedirect : '/profile', // redirect to the secure profile section
-    // failureRedirect : '/signup', // redirect back to the signup page if there is an error
-    // failureFlash : true // allow flash messages
-  }))
+  user.save(function(err) {
+     if (err) {
+       res.send(err);
+     } else {
+       res.json({ message: 'User created!' });
+     }
+   });
+});
 
-  .get(function(req, res) {
-    res.render('signup.ejs', { message: req.flash('loginMessage') });
-  });
-
+// ROUTE - All Users
 router.route('/api/users')
-  .get(function (req, res) {
-    return res.status(200).send({ user: { id: 1, email: 'danielgynn94@gmail.com', password: 'password' }});
+  .get(function(req, res) {
+     User.find(function(err, users) {
+       if (err) {
+         res.send(err);
+       } else {
+         res.json(users);
+       }
+     });
+   });
+
+router.route('/api/users/:user_id')
+  .get(function(req, res) {
+    User.findById(req.params.user_id, function(err, user) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(user);
+      }
+    });
+  })
+
+  .put(function(req, res) {
+    User.findById(req.params.user_id, function(err, user) {
+      if (err) {
+        res.send(err);
+      }
+
+      // Update user data
+      user.local.email = req.param('email');
+      user.local.password = req.param('password');
+
+      // save the location
+      user.save(function(err) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json({ message: 'User details updated!' });
+        }
+      });
+     });
+  })
+
+  .delete(function(req, res) {
+    User.remove({
+      _id: req.params.user_id
+    }, function(err, user) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json({ message: 'The user ' + req.params.user_id + ' has been successfully deleted' });
+      }
+    });
   });
 
+// ROUTE - Logout
 router.route('/api/logout')
   .get(function(req, res) {
     req.logout();
     res.redirect('/api');
   });
 
-// ROUTE - all locations
+// ROUTE - All locations
 router.route('/api/locations/')
   // POST a new Location object
   .post(function(req, res) {
