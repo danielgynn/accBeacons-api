@@ -1,5 +1,5 @@
 // Set MongoDB database URL.
 module.exports = {
-  'secret': 'superSecret',
+  'secret': 'secretsecretsecret',
   'url': 'mongodb://localhost/access-beacons',
 };
