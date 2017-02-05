@@ -72,8 +72,10 @@ router.route('/api/users/:user_id')
       }
 
       // Update user data
-      user.local.email = req.param('email');
-      user.local.password = req.param('password');
+      user.email = req.param('email');
+      user.name = req.param('name');
+      user.phoneNumber = req.param('phoneNumber');
+      user.admin = req.param('admin');
 
       // save the location
       user.save(function(err) {
