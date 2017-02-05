@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var jwt    = require('jsonwebtoken');
 
@@ -41,6 +39,7 @@ app.use('/', router);
 
 var User = require('./models/user');
 
+// Allow user to authenticate
 app.route('/api/authenticate')
   .post(function(req, res) {
     // find the user
@@ -49,24 +48,27 @@ app.route('/api/authenticate')
     }, function(err, user) {
       if (err) throw err;
       if (!user) {
-        res.json({ success: false, message: 'Authentication failed. User not found.' });
+        res.json({
+          success: false,
+          message: 'Authentication failed. User not found.'
+        });
       } else if (user) {
-
         // check if password matches
         if (user.password != req.body.password) {
-          res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+          res.json({
+            success: false,
+            message: 'Authentication failed. Wrong password.'
+          });
         } else {
-
           // if user is found and password is right
           // create a token
           var token = jwt.sign(user, app.get('superSecret'), {
             expiresIn : 60*60*24 // expires in 24 hours
           });
-
           // return the information including token as JSON
           res.json({
             success: true,
-            message: 'Enjoy your token!',
+            message: 'You have received a token.',
             token: token
           });
         }
