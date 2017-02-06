@@ -1,15 +1,16 @@
-<div class="col-sm-8 col-sm-offset-2">
-   <div class="text-center">
-     <h1>{{user.name}}'s Profile</h1>
-     <p>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</p>
-     <hr>
-     <div class="">
-       {{#if user.email}}
-         <img src="https://avatars.io/gravatar/{{user.email}}" class="img-circle">
-         <p><strong>user id</strong>: {{user.id}}</p>
-         <p><strong>Email</strong>: {{user.email}}</p>
-         <p><strong>Phone Number</strong>: {{user.phoneNumber}}</p>
-       {{/if}}
-     </div>
-   </div>
- </div>
+<section class="col-sm-8 col-sm-offset-2">
+  <div class="text-center">
+    <h1>{{user.name}}</h1>
+    <p>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</p>
+    <hr>
+
+    <div class="">
+      {{#if user}}
+        <img src="https://avatars.io/gravatar/{{user.email}}" class="img-circle">
+        <p><strong>user id</strong>: {{user.id}}</p>
+        <p><strong>Email</strong>: {{user.email}}</p>
+        <p><strong>Phone Number</strong>: {{user.phoneNumber}}</p>
+      {{/if}}
+    </div>
+  </div>
+</section>

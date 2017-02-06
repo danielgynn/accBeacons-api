@@ -1,13 +1,15 @@
-<div class="col-sm-8 col-sm-offset-2">
-   <div>
-     <h1 class="text-center">Locations</h1>
-     <hr>
-     <div class="">
-       <ul>
-         {{#each locations}}
-          <li><a href="locations/{{this._id}}">{{this.name}}</a> - {{this.text}}</li>
-         {{/each}}
-       </ul>
-     </div>
-   </div>
- </div>
+<section class="col-sm-8 col-sm-offset-2">
+  <div>
+    <h1 class="text-center">Locations</h1>
+    <hr>
+    <div class="">
+      <ul>
+        {{#each locations}}
+          <li>
+            <a href="locations/{{this._id}}">{{this.name}}</a> - {{this.text}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</section>
