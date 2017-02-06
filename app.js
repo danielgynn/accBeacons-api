@@ -79,6 +79,13 @@ app.route('/api/authenticate')
         }
       }
     });
+  })
+
+  .get(function(req, res) {
+    res.render('login', {
+      layout: './partials/layout',
+      title: 'Accessible Beacons'
+    })
   });
 
 // route middleware to verify a token

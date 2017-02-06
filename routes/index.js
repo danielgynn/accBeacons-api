@@ -17,6 +17,18 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/signup', passport.authenticate('local-signup', {
+  successRedirect: '/api/profile',
+  failureRedirect: '/api/signup',
+  failureFlash: true,
+}));
+
+router.post('/login', passport.authenticate('local-login', {
+  successRedirect: '/api/profile',
+  failureRedirect: '/api/authenticate',
+  failureFlash: true,
+}));
+
 // GET API DOCS TODO
 // router.get("/api", Front.docsRequest.bind(Front));
 
@@ -45,6 +57,13 @@ router.route('/api/signup/')
      });
    })
 
+   .get(function(req, res) {
+     res.render('signup', {
+       layout: './partials/layout',
+       title: 'Accessible Beacons'
+     })
+   });
+
 // ROUTE - All Users
 router.route('/api/users')
   .get(function(req, res) {
@@ -56,6 +75,15 @@ router.route('/api/users')
        }
      });
    });
+
+router.route('/api/profile')
+  .get(function(req, res) {
+    res.render('profile', {
+      layout: './partials/layout',
+      title: 'Accessible Beacons',
+      user: req.user
+    });
+  })
 
 router.route('/api/users/:user_id')
   .get(function(req, res) {
