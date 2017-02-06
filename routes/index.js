@@ -51,7 +51,8 @@ router.get('/locations', isLoggedIn, function(req, res) {
         layout: './partials/layout',
         title: 'Accessible Beacons',
         user: req.user,
-        locations: locations
+        locations: locations,
+        locationLink: 'locations/' + locations._id
       })
     }
   });
@@ -63,6 +64,31 @@ router.get('/api/locations', function(req, res) {
       res.send(err);
     } else {
       res.json(locations);
+    }
+  });
+});
+
+router.get('/locations/:location_id', isLoggedIn, function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.render('location',  {
+        layout: './partials/layout',
+        title: 'Accessible Beacons',
+        user: req.user,
+        location: location
+      })
+    }
+  });
+});
+
+router.get('/api/locations/:location_id', function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(location);
     }
   });
 });
