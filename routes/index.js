@@ -81,6 +81,7 @@ router.post('/locations', function(req, res) {
   // set the data from the request
   location.name = req.param('name');
   location.text = req.param('text');
+  location.extNumber = Math.floor(Math.random()*999) + 100;
 
   // save the location and check for errors
   location.save(function(err) {

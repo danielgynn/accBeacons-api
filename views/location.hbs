@@ -1,6 +1,11 @@
 <section class="col-sm-8 col-sm-offset-2">
   <div>
-    <h1 class="text-center">{{location.name}}</h1>
+    <header class="text-center">
+      <h1>{{location.name}}</h1>
+      {{#if location.extNumber}}
+        <p><strong>Extension Number: </strong>{{location.extNumber}}</p>
+      {{/if}}
+    </header>
     {{#if user.admin}}
       <form action="/locations/{{location._id}}" method="delete">
         <div>
@@ -10,7 +15,7 @@
     {{/if}}
     <hr>
     <div class="">
-      <p>{{location.text}}
+      <p>{{location.text}}</p>
     </div>
   </div>
 </section>

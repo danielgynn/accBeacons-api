@@ -4,7 +4,9 @@ var mongoose   = require('mongoose'),
 
 var schema = mongoose.Schema({
   name: String,
-  text: String
+  text: String,
+  beaconID: String,
+  extNumber: Number
 });
 
 module.exports = mongoose.model('Location', schema);
