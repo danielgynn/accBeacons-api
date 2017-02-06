@@ -18,6 +18,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+// GET API DOCS TODO
+// router.get("/api", Front.docsRequest.bind(Front));
+
+// ROUTE - API namespaced gateway
+router.get('/api', function(req, res, next) {
+  res.json({ message: 'Welcome to the Accessible Beacons API!' });
+});
+
 router.get('/login', function(req, res) {
   res.render('login', {
     layout: './partials/layout',
@@ -58,14 +66,9 @@ router.get('/locations', isLoggedIn, function(req, res) {
   });
 });
 
-router.get('/api/locations', function(req, res) {
-  Location.find(function(err, locations) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(locations);
-    }
-  });
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 router.get('/locations/:location_id', isLoggedIn, function(req, res) {
@@ -83,6 +86,28 @@ router.get('/locations/:location_id', isLoggedIn, function(req, res) {
   });
 });
 
+router.post('/signup', passport.authenticate('local-signup', {
+  successRedirect: '/',
+  failureRedirect: '/signup',
+  failureFlash: true,
+}));
+
+router.post('/login', passport.authenticate('local-login', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true,
+}));
+
+router.get('/api/locations', function(req, res) {
+  Location.find(function(err, locations) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(locations);
+    }
+  });
+});
+
 router.get('/api/locations/:location_id', function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
     if (err) {
@@ -93,23 +118,60 @@ router.get('/api/locations/:location_id', function(req, res) {
   });
 });
 
-// GET all Location objects
-//    .get(function(req, res) {
-//       Location.find(function(err, locations) {
-//         if (err) {
-//           res.send(err);
-//         } else {
-//           res.json(locations);
-//         }
-//       });
-//     });
+// ROUTE - All locations
+router.post('/api/locations/', function(req, res) {
+  // create a new instance of the Location model
+  var location = new Location();
 
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
+  // set the data from the request
+  location.name = req.param('name');
+  location.text = req.param('text');
+
+  // save the location and check for errors
+  location.save(function(err) {
+     if (err) {
+       res.send(err);
+     } else {
+       res.json({ message: 'Location created!' });
+     }
+   });
+ });
+
+ // PUT - update a Location object
+router.put('/api/locations/:location_id', function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    if (err) {
+      res.send(err);
+    }
+
+    location.name = req.param('name');
+    location.text = req.param('text');
+
+    // save the location
+    location.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json({ message: 'Location updated!' });
+      }
+    });
   });
+});
 
-router.get('/profile/:user_id', function(req, res) {
+ // DELETE - delete a Location object
+router.delete('/api/locations/:location_id', function(req, res) {
+  Location.remove({
+    _id: req.params.location_id
+  }, function(err, location) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json({ message: 'The location ' + req.params.location_id + ' has been successfully deleted' });
+    }
+  });
+});
+
+router.get('/api/users/:user_id', function(req, res) {
   User.findById(req.params.user_id, function(err, user) {
     if (err) {
       res.send(err);
@@ -117,9 +179,21 @@ router.get('/profile/:user_id', function(req, res) {
       res.json(user);
     }
   });
-})
+});
 
-router.put('/profile/:user_id', function(req, res) {
+// ROUTE - All Users
+router.route('/api/users')
+  .get(function(req, res) {
+     User.find(function(err, users) {
+       if (err) {
+         res.send(err);
+       } else {
+         res.json(users);
+       }
+     });
+   });
+
+router.put('/api/users/:user_id', function(req, res) {
   User.findById(req.params.user_id, function(err, user) {
     if (err) {
       res.send(err);
@@ -141,149 +215,20 @@ router.put('/profile/:user_id', function(req, res) {
     });
    });
 })
-//   .put(function(req, res) {
-//     User.findById(req.params.user_id, function(err, user) {
-//       if (err) {
-//         res.send(err);
-//       }
-//
-//       // Update user data
-//       user.email = req.param('email');
-//       user.name = req.param('name');
-//       user.phoneNumber = req.param('phoneNumber');
-//       user.admin = req.param('admin');
-//
-//       // save the location
-//       user.save(function(err) {
-//         if (err) {
-//           res.send(err);
-//         } else {
-//           res.json({ message: 'User details updated!' });
-//         }
-//       });
-//      });
-//   })
 
-router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/',
-  failureRedirect: '/signup',
-  failureFlash: true,
-}));
+ router.route('/api/users/:user_id')
+   .delete(function(req, res) {
+     User.remove({
+       _id: req.params.user_id
+     }, function(err, user) {
+       if (err) {
+         res.send(err);
+       } else {
+         res.json({ message: 'The user ' + req.params.user_id + ' has been successfully deleted' });
+       }
+     });
+   });
 
-router.post('/login', passport.authenticate('local-login', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,
-}));
-
-// GET API DOCS TODO
-// router.get("/api", Front.docsRequest.bind(Front));
-
-// ROUTE - API namespaced gateway
-router.get('/api', function(req, res, next) {
-  res.json({ message: 'Welcome to the Accessible Beacons API!' });
-});
-
-// router.route('/api/signup/')
-//   // POST a new User object
-//   .post(function(req, res) {
-//     // create a new instance of the Location model
-//     var user = new User({
-//       name: req.param('name'),
-//       email: req.param('email'),
-//       password: req.param('password'),
-//       admin: false
-//     });
-//
-//     // save the location and check for errors
-//     user.save(function(err) {
-//       if (err) throw err;
-//
-//       console.log('User saved successfully');
-//       res.json({ success: true });
-//      });
-//    })
-//
-// // ROUTE - All Users
-// router.route('/api/users')
-//   .get(function(req, res) {
-//      User.find(function(err, users) {
-//        if (err) {
-//          res.send(err);
-//        } else {
-//          res.json(users);
-//        }
-//      });
-//    });
-//
-// router.route('/api/users/:user_id')
-//   .get(function(req, res) {
-//     User.findById(req.params.user_id, function(err, user) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.json(user);
-//       }
-//     });
-//   })
-//
-//   .put(function(req, res) {
-//     User.findById(req.params.user_id, function(err, user) {
-//       if (err) {
-//         res.send(err);
-//       }
-//
-//       // Update user data
-//       user.email = req.param('email');
-//       user.name = req.param('name');
-//       user.phoneNumber = req.param('phoneNumber');
-//       user.admin = req.param('admin');
-//
-//       // save the location
-//       user.save(function(err) {
-//         if (err) {
-//           res.send(err);
-//         } else {
-//           res.json({ message: 'User details updated!' });
-//         }
-//       });
-//      });
-//   })
-//
-//   .delete(function(req, res) {
-//     User.remove({
-//       _id: req.params.user_id
-//     }, function(err, user) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.json({ message: 'The user ' + req.params.user_id + ' has been successfully deleted' });
-//       }
-//     });
-//   });
-//
-
-//
-// // ROUTE - All locations
-// router.route('/api/locations/')
-//   // POST a new Location object
-//   .post(function(req, res) {
-//     // create a new instance of the Location model
-//     var location = new Location();
-//
-//     // set the data from the request
-//     location.name = req.param('name');
-//     location.text = req.param('text');
-//
-//     // save the location and check for errors
-//     location.save(function(err) {
-//        if (err) {
-//          res.send(err);
-//        } else {
-//          res.json({ message: 'Location created!' });
-//        }
-//      });
-//    })
 //
 //    // GET all Location objects
 //    .get(function(req, res) {
@@ -310,39 +255,6 @@ router.get('/api', function(req, res, next) {
 //     });
 //   })
 //
-//   // PUT - update a Location object
-//   .put(function(req, res) {
-//     Location.findById(req.params.location_id, function(err, location) {
-//       if (err) {
-//         res.send(err);
-//       }
-//
-//       location.name = req.param('name');
-//       location.text = req.param('text');
-//
-//       // save the location
-//       location.save(function(err) {
-//         if (err) {
-//           res.send(err);
-//         } else {
-//           res.json({ message: 'Location updated!' });
-//         }
-//       });
-//      });
-//    })
-//
-//   // DELETE - delete a Location object
-//   .delete(function(req, res) {
-//     Location.remove({
-//       _id: req.params.location_id
-//     }, function(err, location) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.json({ message: 'The location ' + req.params.location_id + ' has been successfully deleted' });
-//       }
-//     });
-//   });
 
 module.exports = router;
 
