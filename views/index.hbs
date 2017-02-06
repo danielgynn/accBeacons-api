@@ -1,4 +1,8 @@
 <div class="jumbotron">
   <h1>{{title}}</h1>
-  <p>API is available @ <a href="/api">/api</a></p>
+  {{#if user}}
+    <p>Signed in as <strong>{{user.email}}</strong>.</p>
+  {{else}}
+    <p>API is available @ <a href="/api">/api</a></p>
+  {{/if}}
 </div>

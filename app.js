@@ -17,8 +17,6 @@ var app = express();
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 app.set('superSecret', configDB.secret);
-require('./config/passport')(passport);
-
 
 // Import routes.
 var router = require('./routes/index');
@@ -37,56 +35,59 @@ app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
   next();
 });
+
 app.use(logger('dev'));
 app.use(bodyParser.json({ type: "application/json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 app.use(session({ secret: 'shhsecret', resave: true, saveUninitialized: true }));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
+require('./config/passport')(passport);
 
 app.use('/', router);
 
 var User = require('./models/user');
 
 // Allow user to authenticate
-app.route('/api/authenticate')
-  .post(function(req, res) {
-    // find the user
-    User.findOne({
-      email: req.body.email
-    }, function(err, user) {
-      if (err) throw err;
-      if (!user) {
-        res.json({
-          success: false,
-          message: 'Authentication failed. User not found.'
-        });
-      } else if (user) {
-        // check if password matches
-        if (user.password != req.body.password) {
-          res.json({
-            success: false,
-            message: 'Authentication failed. Wrong password.'
-          });
-        } else {
-          // if user is found and password is right
-          // create a token
-          var token = jwt.sign(user, app.get('superSecret'), {
-            expiresIn : 60*60*24 // expires in 24 hours
-          });
-          // return the information including token as JSON
-          res.json({
-            success: true,
-            message: 'You have received a token.',
-            token: token
-          });
-        }
-      }
-    });
-  });
+// app.route('/api/authenticate')
+//   .post(function(req, res) {
+//     // find the user
+//     User.findOne({
+//       email: req.body.email
+//     }, function(err, user) {
+//       if (err) throw err;
+//       if (!user) {
+//         res.json({
+//           success: false,
+//           message: 'Authentication failed. User not found.'
+//         });
+//       } else if (user) {
+//         // check if password matches
+//         if (user.password != req.body.password) {
+//           res.json({
+//             success: false,
+//             message: 'Authentication failed. Wrong password.'
+//           });
+//         } else {
+//           // if user is found and password is right
+//           // create a token
+//           var token = jwt.sign(user, app.get('superSecret'), {
+//             expiresIn : 60*60*24 // expires in 24 hours
+//           });
+//           // return the information including token as JSON
+//           res.json({
+//             success: true,
+//             message: 'You have received a token.',
+//             token: token
+//           });
+//         }
+//       }
+//     });
+//   });
 
 // route middleware to verify a token
 // app.use(function(req, res, next) {
@@ -114,25 +115,28 @@ app.route('/api/authenticate')
 //   }
 // });
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('partials/error', {
+      message: err.message,
+      error: err,
+    });
+  });
+}
 
-  // render the error page
+app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('partials/error', {
     message: err.message,
     error: {},
-    layout: './layout'
-  });});
+  });
+});
 
 module.exports = app;
