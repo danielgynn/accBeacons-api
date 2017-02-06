@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var hbs = require('express-hbs');
 var session = require('express-session');
 var flash = require('connect-flash');
 var jwt    = require('jsonwebtoken');
@@ -20,7 +21,11 @@ app.set('superSecret', configDB.secret);
 var router = require('./routes/index');
 
 // Set default rendering engine - TODO: remove this safely.
-app.set('view engine', 'jade');
+app.engine('hbs', hbs.express4({
+  partialsDir: __dirname + '/views/partials'
+}));
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
 
 // Set headers.
 app.use(function(req, res, next) {
@@ -117,7 +122,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
-});
+  res.render('partials/error', {
+    message: err.message,
+    error: {},
+    layout: './layout'
+  });});
 
 module.exports = app;

@@ -11,7 +11,10 @@ var jwtToken = ('jwtTokenSecret', 'YOUR_SECRET_STRING');
 
 // ROUTE - index
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.render('index', {
+    layout: './partials/layout',
+    title: 'Accessible Beacons'
+  });
 });
 
 // GET API DOCS TODO
