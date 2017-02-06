@@ -3,6 +3,12 @@
   "author": "danielgynn",
   "version": "0.0.0",
   "private": true,
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:danielgynn/accBeacons-api.git",
+    "type": "git"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -23,6 +29,9 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sass": "^3.1.0",
     "mongoose": "^4.7.8"
   }
 }
