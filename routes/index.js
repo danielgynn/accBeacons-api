@@ -17,15 +17,37 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/login', function(req, res) {
+  res.render('login', {
+    layout: './partials/layout',
+    title: 'Accessible Beacons'
+  })
+});
+
+router.get('/signup', function(req, res) {
+  res.render('signup', {
+    layout: './partials/layout',
+    title: 'Accessible Beacons'
+  })
+});
+
+router.get('/profile', isLoggedIn, function(req, res) {
+  res.render('profile',  {
+    layout: './partials/layout',
+    title: 'Accessible Beacons',
+    user: req.user
+  })
+})
+
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/api/profile',
-  failureRedirect: '/api/signup',
+  successRedirect: '/profile',
+  failureRedirect: '/signup',
   failureFlash: true,
 }));
 
 router.post('/login', passport.authenticate('local-login', {
-  successRedirect: '/api/profile',
-  failureRedirect: '/api/authenticate',
+  successRedirect: '/profile',
+  failureRedirect: '/authenticate',
   failureFlash: true,
 }));
 
@@ -57,13 +79,6 @@ router.route('/api/signup/')
      });
    })
 
-   .get(function(req, res) {
-     res.render('signup', {
-       layout: './partials/layout',
-       title: 'Accessible Beacons'
-     })
-   });
-
 // ROUTE - All Users
 router.route('/api/users')
   .get(function(req, res) {
@@ -75,15 +90,6 @@ router.route('/api/users')
        }
      });
    });
-
-router.route('/api/profile')
-  .get(function(req, res) {
-    res.render('profile', {
-      layout: './partials/layout',
-      title: 'Accessible Beacons',
-      user: req.user
-    });
-  })
 
 router.route('/api/users/:user_id')
   .get(function(req, res) {

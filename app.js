@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var hbs = require('express-hbs');
+var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
 var jwt    = require('jsonwebtoken');
@@ -16,6 +17,8 @@ var app = express();
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 app.set('superSecret', configDB.secret);
+require('./config/passport')(passport);
+
 
 // Import routes.
 var router = require('./routes/index');
@@ -39,6 +42,10 @@ app.use(bodyParser.json({ type: "application/json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret: 'shhsecret', resave: true, saveUninitialized: true }));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', router);
 
@@ -79,40 +86,33 @@ app.route('/api/authenticate')
         }
       }
     });
-  })
-
-  .get(function(req, res) {
-    res.render('login', {
-      layout: './partials/layout',
-      title: 'Accessible Beacons'
-    })
   });
 
 // route middleware to verify a token
-app.use(function(req, res, next) {
-  // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-  // decode token
-  if (token) {
-    // verifies secret and checks exp
-    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-      if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });
-      } else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
-        next();
-      }
-    });
-  } else {
-    // if there is no token
-    // return an error
-    return res.status(403).send({
-        success: false,
-        message: 'No token provided.'
-    });
-  }
-});
+// app.use(function(req, res, next) {
+//   // check header or url parameters or post parameters for token
+//   var token = req.body.token || req.query.token || req.headers['x-access-token'];
+//   // decode token
+//   if (token) {
+//     // verifies secret and checks exp
+//     jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+//       if (err) {
+//         return res.json({ success: false, message: 'Failed to authenticate token.' });
+//       } else {
+//         // if everything is good, save to request for use in other routes
+//         req.decoded = decoded;
+//         next();
+//       }
+//     });
+//   } else {
+//     // if there is no token
+//     // return an error
+//     return res.status(403).send({
+//         success: false,
+//         message: 'No token provided.'
+//     });
+//   }
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
