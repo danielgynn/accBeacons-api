@@ -66,6 +66,44 @@ router.get('/locations', isLoggedIn, function(req, res) {
   });
 });
 
+router.get('/locationAdd', isLoggedIn, function(req, res) {
+  res.render('locationAdd',  {
+    layout: './partials/layout',
+    title: 'Accessible Beacons',
+    user: req.user
+  })
+});
+
+router.post('/locations', function(req, res) {
+  // create a new instance of the Location model
+  var location = new Location();
+
+  // set the data from the request
+  location.name = req.param('name');
+  location.text = req.param('text');
+
+  // save the location and check for errors
+  location.save(function(err) {
+     if (err) {
+       res.send(err);
+     } else {
+       res.redirect('/locations');
+     }
+   });
+ });
+
+ router.delete('/locations/:location_id', function(req, res) {
+   Location.remove({
+     _id: req.params.location_id
+   }, function(err, location) {
+     if (err) {
+       res.send(err);
+     } else {
+       res.redirect('/locations');
+     }
+   });
+ });
+
 router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
@@ -228,33 +266,6 @@ router.put('/api/users/:user_id', function(req, res) {
        }
      });
    });
-
-//
-//    // GET all Location objects
-//    .get(function(req, res) {
-//       Location.find(function(err, locations) {
-//         if (err) {
-//           res.send(err);
-//         } else {
-//           res.json(locations);
-//         }
-//       });
-//     });
-//
-// // ROUTE - specific location
-// router.route('/api/locations/:location_id')
-//   // get the Location with that id
-//   // (accessed at GET http://localhost:3000/api/locations/:location_id)
-//   .get(function(req, res) {
-//     Location.findById(req.params.location_id, function(err, location) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.json(location);
-//       }
-//     });
-//   })
-//
 
 module.exports = router;
 

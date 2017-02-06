@@ -1,6 +1,9 @@
 <section class="col-sm-8 col-sm-offset-2">
   <div>
     <h1 class="text-center">Locations</h1>
+    {{#if user.admin}}
+      <a class="btn btn-default" href="/locationAdd" role="button">Add a new Location</a>
+    {{/if}}
     <hr>
     <div class="">
       <ul>

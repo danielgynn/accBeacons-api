@@ -1,6 +1,13 @@
 <section class="col-sm-8 col-sm-offset-2">
   <div>
     <h1 class="text-center">{{location.name}}</h1>
+    {{#if user.admin}}
+      <form action="/locations/{{location._id}}" method="delete">
+        <div>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </form>
+    {{/if}}
     <hr>
     <div class="">
       <p>{{location.text}}
