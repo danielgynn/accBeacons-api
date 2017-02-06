@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose'),
   ObjectId   = mongoose.Schema.Types.ObjectId;
-// var bcrypt   = require('bcrypt-nodejs');
+var bcrypt   = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
   name: String,
@@ -16,7 +16,7 @@ userSchema.methods.generateHash = function(password) {
 };
 
 userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.local.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);
