@@ -1,21 +1,31 @@
 <section class="col-sm-8 col-sm-offset-2">
-  <div>
-    <header class="text-center">
-      <h1>{{location.name}}</h1>
-      {{#if location.extNumber}}
-        <p><strong>Extension Number: </strong>{{location.extNumber}}</p>
-      {{/if}}
-    </header>
-    {{#if user.admin}}
-      <form action="/locations/{{location._id}}" method="delete">
-        <div>
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </div>
-      </form>
+  <header class="text-center">
+    <h1>{{location.name}}</h1>
+    {{#if location.extNumber}}
+      <h4><strong>Extension Number: </strong>{{location.extNumber}}</h4>
     {{/if}}
-    <hr>
-    <div class="">
-      <p>{{location.text}}</p>
+  </header>
+
+  <hr />
+
+  <div class="flex-wrapper flex-space">
+    <div class="flex-left">
+      <button class="btn btn-success">Send Information</button>
     </div>
+
+    <div class="flex-wrapper flex-right">
+      {{#if user.admin}}
+        <button class="btn btn-primary">Edit</button>
+        <form action="/locations/{{location._id}}" method="delete">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      {{/if}}
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="col-sm-8 col-sm-offset-2">
+    <p class="justify">{{location.text}}</p>
   </div>
 </section>

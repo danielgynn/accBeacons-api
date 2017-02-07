@@ -1,12 +1,27 @@
 body {
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font-roboto;
 }
 
 a {
-  color: #00B7FF;
+  color: $color-blue;
+}
+
+ul {
+  padding-left: 0;
+}
+
+.justify {
+  text-align: justify;
 }
 
 .text-muted {
   margin: 20px 0;
+}
+
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
