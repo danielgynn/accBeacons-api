@@ -6,15 +6,22 @@
   </header>
 
   <div class="col-sm-8 col-sm-offset-2">
-    <form action="/settings" method="post">
+    <form action="/settings/{{user._id}}" method="post">
+      <input type="hidden" name="_method" value="PUT">
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" name="email" value="{{user.email}}" />
+      </div>
+
       <div class="form-group">
         <label>Name</label>
-        <input type="text" class="form-control" name="name" />
+        <input type="text" class="form-control" name="name" value="{{user.name}}" />
       </div>
 
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="text" class="form-control" name="phoneNumber" />
+        <input type="text" class="form-control" name="phoneNumber" value="{{user.phoneNumber}}" />
       </div>
 
       <div>

@@ -2,7 +2,7 @@
   <header class="text-center">
     <h1>{{user.name}}</h1>
     <h4>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</h4>
-    <a href="/settings">Edit Settings</a>
+    <a href="/settings/{{user._id}}">Edit Settings</a>
     <hr>
   </header>
 

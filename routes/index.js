@@ -1,13 +1,12 @@
-//  GET index.
 var express = require('express');
 var passport = require('passport');
-var jwt    = require('jsonwebtoken');
 var mongoose = require('mongoose');
+var _ = require('lodash');
+
 var Location = require('../models/location');
 var User = require('../models/user');
 var router = express.Router();
 var configDB = require('../config/database.js');
-var jwtToken = ('jwtTokenSecret', 'YOUR_SECRET_STRING');
 
 // ROUTE - index
 router.get('/', function(req, res, next) {
@@ -50,13 +49,36 @@ router.get('/profile', isLoggedIn, function(req, res) {
   })
 });
 
-router.get('/settings', isLoggedIn, function(req, res) {
+router.get('/settings/:user_id', isLoggedIn, function(req, res) {
   res.render('settings', {
     layout: './partials/layout',
     title: 'Accessible Beacons',
     user: req.user
   })
 });
+
+router.post('/settings/:user_id', function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+
+    // Update user data
+    user.email = req.param('email');
+    user.name = req.param('name');
+    user.phoneNumber = req.param('phoneNumber');
+
+    // save the location
+    user.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/profile');
+      }
+    });
+  });
+});
+
 
 router.get('/locations', isLoggedIn, function(req, res) {
   Location.find(function(err, locations) {
@@ -118,10 +140,6 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-
-
-// API METHODS
-
 // GET Location by ID
 router.get('/locations/:location_id', isLoggedIn, function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
@@ -149,6 +167,8 @@ router.post('/login', passport.authenticate('local-login', {
   failureRedirect: '/login',
   failureFlash: true,
 }));
+
+// API METHODS
 
 router.get('/api/locations', function(req, res) {
   Location.find(function(err, locations) {
