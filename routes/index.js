@@ -50,6 +50,14 @@ router.get('/profile', isLoggedIn, function(req, res) {
   })
 });
 
+router.get('/settings', isLoggedIn, function(req, res) {
+  res.render('settings', {
+    layout: './partials/layout',
+    title: 'Accessible Beacons',
+    user: req.user
+  })
+});
+
 router.get('/locations', isLoggedIn, function(req, res) {
   Location.find(function(err, locations) {
     if (err) {
@@ -110,6 +118,11 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+
+
+// API METHODS
+
+// GET Location by ID
 router.get('/locations/:location_id', isLoggedIn, function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
     if (err) {
