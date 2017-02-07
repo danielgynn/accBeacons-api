@@ -79,6 +79,53 @@ router.post('/settings/:user_id', function(req, res) {
   });
 });
 
+router.get('/editLocation/:location_id', isLoggedIn, function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.render('editLocation',  {
+        layout: './partials/layout',
+        title: 'Accessible Beacons',
+        user: req.user,
+        location: location
+      })
+    }
+  });
+});
+
+router.post('/editLocation/:location_id', function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    if (err) {
+      res.send(err);
+    }
+
+    // Update user data
+    location.name = req.param('name');
+    location.text = req.param('text');
+
+    // save the location
+    location.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/locations');
+      }
+    });
+  });
+});
+
+router.post('/deleteLocation/:location_id', function(req, res) {
+  Location.remove({
+    _id: req.params.location_id
+  }, function(err, location) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.redirect('/locations');
+    }
+  });
+});
 
 router.get('/locations', isLoggedIn, function(req, res) {
   Location.find(function(err, locations) {
@@ -115,18 +162,6 @@ router.post('/locations', function(req, res) {
 
   // save the location and check for errors
   location.save(function(err) {
-     if (err) {
-       res.send(err);
-     } else {
-       res.redirect('/locations');
-     }
-   });
- });
-
- router.delete('/locations/:location_id', function(req, res) {
-   Location.remove({
-     _id: req.params.location_id
-   }, function(err, location) {
      if (err) {
        res.send(err);
      } else {

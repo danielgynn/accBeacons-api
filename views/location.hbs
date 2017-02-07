@@ -15,8 +15,9 @@
 
     <div class="flex-wrapper flex-right">
       {{#if user.admin}}
-        <button class="btn btn-primary">Edit</button>
-        <form action="/locations/{{location._id}}" method="delete">
+        <a class="btn btn-primary" href="/editLocation/{{location._id}}">Edit</a>
+        <form action="/deleteLocation/{{location._id}}" method="post">
+          <input type="hidden" name="_method" value="delete">
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
       {{/if}}

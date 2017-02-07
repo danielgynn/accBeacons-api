@@ -6,19 +6,22 @@
     <div class="alert-danger">{{message}}</div>
   {{/if}}
 
-  <form action="/locations" method="post">
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" class="form-control" name="name" />
-    </div>
+  <div class="col-sm-8 col-sm-offset-2">
+    <form action="/locations" method="post">
 
-    <div class="form-group">
-      <label>Description</label>
-      <input type="text" class="form-control" name="text" />
-    </div>
-    
-    <div>
-      <input type="submit" class="form-control" value="Submit" />
-    </div>
-  </form>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" name="name" />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" rows="3" name="text"></textarea>
+      </div>
+
+      <div>
+        <input type="submit" class="btn btn-primary form-control" value="Submit" />
+      </div>
+    </form>
+  </div>
 </section>

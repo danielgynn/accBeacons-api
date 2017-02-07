@@ -7,15 +7,14 @@
 
   {{#if user.admin}}
     <a class="btn btn-default" href="/locationAdd" role="button">Add a new Location</a>
+    <hr />
   {{/if}}
-
-  <hr />
 
   <div>
     <ul>
       {{#each locations}}
         <li class="truncate">
-          <a href="locations/{{this._id}}">{{this.name}}</a> - {{this.text}}
+          <a href="locations/{{this._id}}">{{this.name}} ({{this.extNumber}})</a> - {{this.text}}
         </li>
       {{/each}}
     </ul>
