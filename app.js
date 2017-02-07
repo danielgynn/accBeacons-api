@@ -18,7 +18,11 @@ mongoose.connect(configDB.url);
 app.set('superSecret', configDB.secret);
 
 // Import routes.
-var router = require('./routes/index');
+var index = require('./routes/index');
+var users = require('./routes/users');
+var locations = require('./routes/locations');
+var authentication = require('./routes/authentication');
+var api = require('./routes/api');
 
 // Set default rendering engine - TODO: remove this safely.
 app.engine('hbs', hbs.express4({
@@ -48,7 +52,11 @@ app.use(flash());
 
 require('./config/passport')(passport);
 
-app.use('/', router);
+app.use('/', index);
+app.use('/', users);
+app.use('/', locations);
+app.use('/', authentication);
+app.use('/', api);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
