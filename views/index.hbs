@@ -1,8 +1,13 @@
-<div class="jumbotron">
-  <h1>{{title}}</h1>
-  {{#if user}}
-    <p>Signed in as <strong>{{user.email}}</strong>.</p>
-  {{else}}
-    <p>API documentation is available at <a href="/api">/api</a>.</p>
-  {{/if}}
-</div>
+<section class="col-sm-10 col-sm-offset-1">
+  <div class="jumbotron">
+    <h1><i class="fa fa-low-vision"></i> {{title}}</h1>
+    <p>{{appDescription}}</p>
+  </div>
+
+  {{#if user}}<p>Signed in as <strong>{{user.email}}</strong>.</p>{{/if}}
+  {{#if user.admin}}<p>API documentation is available at <a href="/api">/api</a>.</p>{{/if}}
+</section>
+
+<section>
+
+</section>

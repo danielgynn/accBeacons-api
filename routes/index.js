@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
   res.render('index', {
     layout: './partials/layout',
     title: 'Accessible Beacons',
+    appDescription: 'The application designed to provide detailed and useful information, based on locations and adhering to accessibility requrements.',
     user: req.user
   });
 });
