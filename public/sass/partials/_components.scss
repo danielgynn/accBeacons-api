@@ -23,3 +23,22 @@ footer {
   margin: 1rem auto;
   text-align: center;
 }
+
+.message-banner {
+  padding: 1rem;
+  background-color: $color-blue;
+  color: white;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  p {
+    margin: 0;
+  }
+}

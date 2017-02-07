@@ -2,12 +2,16 @@
   <div class="jumbotron">
     <h1><i class="fa fa-low-vision"></i> {{title}}</h1>
     <p>{{appDescription}}</p>
+
+    {{#if user}}
+      {{#unless user.phoneNumber}}
+        <div class="message-banner">
+          <p>Please go to <a href="/settings/{{user._id}}">Settings</a> to add your phone number.</p>
+        </div>
+      {{/unless}}
+    {{/if}}
   </div>
 
   {{#if user}}<p>Signed in as <strong>{{user.email}}</strong>.</p>{{/if}}
   {{#if user.admin}}<p>API documentation is available at <a href="/api">/api</a>.</p>{{/if}}
-</section>
-
-<section>
-
 </section>
