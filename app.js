@@ -13,11 +13,14 @@ var flash = require('connect-flash');
 var app = express();
 
 var configDB = require('./config/database.js');
+
 if (app.get('env') === 'development') {
+  // Specify local development database.
   mongoose.connect(configDB.development.url);
   app.set('superSecret', configDB.development.secret);
 } else if (app.get('env') === 'production') {
   // Start by loading up all our mongoose models and connecting.
+  // Specify production database.
   mongoose.connect(configDB.production.url);
   app.set('superSecret', configDB.production.secret);
 }

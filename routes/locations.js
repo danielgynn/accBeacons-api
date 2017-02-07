@@ -115,6 +115,14 @@ router.post('/deleteLocation/:location_id', function(req, res) {
   });
 });
 
+router.get('/savedLocations', isLoggedIn, function(req, res) {
+  res.render('savedLocations',  {
+    layout: './partials/layout',
+    title: 'Accessible Beacons',
+    user: req.user
+  });
+});
+
  module.exports = router;
 
  function isLoggedIn(req, res, next) {
