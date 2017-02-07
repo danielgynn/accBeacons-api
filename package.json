@@ -8,6 +8,13 @@
     "url": "git@github.com:danielgynn/accBeacons-api.git",
     "type": "git"
   },
+  "engines": {
+    "node": "4.4.7"
+  },
+  "keywords": [
+    "express",
+    "heroku"
+  ],
   "license": "MIT",
   "scripts": {
     "start": "node ./bin/www"

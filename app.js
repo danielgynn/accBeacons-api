@@ -12,10 +12,15 @@ var flash = require('connect-flash');
 
 var app = express();
 
-// Start by loading up all our mongoose models and connecting.
 var configDB = require('./config/database.js');
-mongoose.connect(configDB.url);
-app.set('superSecret', configDB.secret);
+if (app.get('env') === 'development') {
+  mongoose.connect(configDB.development.url);
+  app.set('superSecret', configDB.development.secret);
+} else if (app.get('env') === 'production') {
+  // Start by loading up all our mongoose models and connecting.
+  mongoose.connect(configDB.production.url);
+  app.set('superSecret', configDB.production.secret);
+}
 
 // Import routes.
 var index = require('./routes/index');
