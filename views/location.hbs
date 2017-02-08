@@ -9,9 +9,12 @@
   <hr />
 
   <div class="flex-wrapper flex-space">
-    <div class="flex-left">
-      <button class="btn btn-success">Send Information</button>
-      <button class="btn"><i class="fa fa-star"></i> Save</button>
+    <div class="flex-wrapper flex-left">
+      <button class="btn">Send Information</button>
+      <form action="/favourite/{{location._id}}/{{user._id}}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <button type="submit" class="btn btn-warning"><i class="fa fa-star"></i> Save</button>
+      </form>
     </div>
 
     <div class="flex-wrapper flex-right">

@@ -123,6 +123,25 @@ router.get('/savedLocations', isLoggedIn, function(req, res) {
   });
 });
 
+router.post('/favourite/:location_id/:user_id', function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    User.findByIdAndUpdate(req.params.user_id, {
+      $push: {
+        'favourites': {
+          location: location,
+          data: location
+        }
+      }
+    }, function(err, store) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/savedLocations');
+      }
+    });
+  });
+});
+
  module.exports = router;
 
  function isLoggedIn(req, res, next) {

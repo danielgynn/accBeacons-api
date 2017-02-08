@@ -3,7 +3,7 @@ var mongoose   = require('mongoose'),
     ObjectId   = mongoose.Schema.Types.ObjectId,
     relationship = require("mongoose-relationship");
 
-var schema = mongoose.Schema({
+var locationSchema = mongoose.Schema({
   name: String,
   text: String,
   beaconID: String,
@@ -15,4 +15,5 @@ var schema = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Location', schema);
+locationSchema.plugin(relationship, { relationshipPathName: 'user' });
+module.exports = mongoose.model('Location', locationSchema);

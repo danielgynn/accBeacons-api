@@ -11,8 +11,15 @@ var userSchema = mongoose.Schema({
   phoneNumber: String,
   admin: Boolean,
   favourites: [{
-    type: ObjectId,
-    ref:"Location"
+    location: {
+      type: ObjectId,
+      ref: "Location"
+    },
+    data: {
+      name: String,
+      text: String,
+      extNumber: Number
+    }
   }],
 });
 

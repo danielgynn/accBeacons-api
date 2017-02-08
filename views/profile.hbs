@@ -2,22 +2,19 @@
   <header class="text-center">
     <h1>{{user.name}}</h1>
     <h4>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</h4>
-    <a href="/settings/{{user._id}}">Edit Settings</a>
+    <img src="https://avatars.io/gravatar/{{user.email}}" class="img-circle">
     <hr>
   </header>
 
   <div class="text-center">
+    <div class="flex-wrapper flex-items-center">
+      <a class="profile-link" href="/settings/{{user._id}}"><i class="fa fa-cogs"></i> Edit Settings</a>
+      <a class="profile-link" href="/savedLocations"><i class="fa fa-star"></i> View Favourites</a>
+    </div>
     {{#if user}}
-      <img src="https://avatars.io/gravatar/{{user.email}}" class="img-circle">
       <p><strong>User ID</strong>: {{user.id}}</p>
       <p><strong>Email</strong>: {{user.email}}</p>
       <p><strong>Phone Number</strong>: {{user.phoneNumber}}</p>
     {{/if}}
-    <hr />
-  </div>
-
-  <div class="text-center">
-    <h2><i class="fa fa-star"></i> Favourites</h2>
-    <hr />
   </div>
 </section>
