@@ -79,6 +79,7 @@ if (app.get('env') === 'development') {
     res.render('partials/error', {
       message: err.message,
       error: err,
+      layout: './layout'
     });
   });
 }
@@ -88,6 +89,7 @@ app.use(function(err, req, res, next) {
   res.render('partials/error', {
     message: err.message,
     error: {},
+    layout: './layout'
   });
 });
 
