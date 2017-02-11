@@ -1,0 +1,19 @@
+.dark-theme {
+  background-color: $color-black !important;
+  color: $color-white !important;
+
+  .jumbotron,
+  footer {
+    background-color: $color-grey !important;
+  }
+}
+
+.light-theme {
+  background-color: $color-white !important;
+  color: $color-black !important;
+
+  .jumbotron,
+  footer {
+    background-color: $color-whitesmoke !important;
+  }
+}

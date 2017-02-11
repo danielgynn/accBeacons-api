@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
   password: String,
   phoneNumber: String,
   admin: Boolean,
+  darkTheme: Boolean,
   favourites: [{
     location: {
       type: ObjectId,

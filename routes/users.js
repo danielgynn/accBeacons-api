@@ -46,6 +46,23 @@ router.post('/settings/:user_id', function(req, res) {
   });
 });
 
+router.post('/toggleTheme/:user_id', function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+    if (user.darkTheme) {
+      user.darkTheme = false;
+    } else {
+      user.darkTheme = true;
+    }
+    user.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/settings/:user_id');
+      }
+    });
+  });
+});
+
 module.exports = router;
 
 function isLoggedIn(req, res, next) {
