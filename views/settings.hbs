@@ -5,19 +5,9 @@
     <hr>
   </header>
 
-  <div class="col-sm-8 col-sm-offset-2">
-    <div class="flex-wrapper flex-items-center">
-      <form action="/toggleTheme/{{user._id}}" method="post">
-        <input type="hidden" name="_method" value="put">
-        <button type="submit" class="btn btn-primary">
-          {{#if user.darkTheme}}
-            Switch to Light Theme
-          {{else}}
-            Switch to Dark Theme
-          {{/if}}
-        </button>
-      </form>
-    </div>
+  <section class="col-sm-8 col-sm-offset-2">
+    <h2>Profile Settings</h2>
+    <hr />
 
     <form action="/settings/{{user._id}}" method="post">
       <input type="hidden" name="_method" value="put">
@@ -41,5 +31,25 @@
         <input type="submit" class="btn btn-primary form-control" value="Submit" />
       </div>
     </form>
-  </div>
+  </section>
+
+  <section class="col-sm-8 col-sm-offset-2">
+    <h2>Accessibility Settings</h2>
+    <hr />
+    <div class="flex-wrapper flex-items-center">
+      <div>
+        <form action="/toggleTheme/{{user._id}}" method="post">
+          <input type="hidden" name="_method" value="put">
+          <button type="submit" class="btn btn-primary">
+            {{#if user.darkTheme}}
+              Switch to Light Theme
+            {{else}}
+              Switch to Dark Theme
+            {{/if}}
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </section>
