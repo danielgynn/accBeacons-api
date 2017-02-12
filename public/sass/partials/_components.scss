@@ -2,7 +2,8 @@
   height: 130px;
 }
 
-button {
+button,
+.button {
   margin: 0;
   display: inline-block;
   padding: 12px 48px;
@@ -10,11 +11,16 @@ button {
   vertical-align: baseline;
   cursor: pointer;
   border-width: 1px;
+  text-decoration: none;
   border-style: solid;
   border-radius: 2px;
   font-size: 1.25rem;
   font-family: "Roboto", sans-serif;
   transition: all 300ms ease-in-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 input {
