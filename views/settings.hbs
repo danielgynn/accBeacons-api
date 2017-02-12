@@ -14,21 +14,21 @@
 
       <div class="form-group">
         <label>Email</label>
-        <input type="text" class="form-control" name="email" value="{{user.email}}" autofocus="true" />
+        <input type="text" name="email" value="{{user.email}}" autofocus="true" />
       </div>
 
       <div class="form-group">
         <label>Name</label>
-        <input type="text" class="form-control" name="name" value="{{user.name}}" />
+        <input type="text" name="name" value="{{user.name}}" />
       </div>
 
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="text" class="form-control" name="phoneNumber" value="{{user.phoneNumber}}" />
+        <input type="text" name="phoneNumber" value="{{user.phoneNumber}}" />
       </div>
 
       <div>
-        <input type="submit" class="btn btn-primary form-control" value="Submit" />
+        <button type="submit" class="btn-primary width-100" value="Submit">Save</button>
       </div>
     </form>
   </section>
@@ -36,19 +36,12 @@
   <section class="col-sm-8 col-sm-offset-2">
     <h2>Accessibility Settings</h2>
     <hr />
-    <div class="flex-wrapper flex-items-center">
-      <div>
-        <form action="/toggleTheme/{{user._id}}" method="post">
-          <input type="hidden" name="_method" value="put">
-          <button type="submit" class="btn btn-primary">
-            {{#if user.darkTheme}}
-              Switch to Light Theme
-            {{else}}
-              Switch to Dark Theme
-            {{/if}}
-          </button>
-        </form>
-      </div>
+    <div class="form-group">
+      <label>Theme</label>
+      <form action="/toggleTheme/{{user._id}}" method="post" class="flex-wrapper flex-items-center">
+        <input type="hidden" name="_method" value="put">
+        <button type="submit" class="btn-primary">Switch to {{#if user.darkTheme}}Light {{else}}Dark {{/if}}Theme</button>
+      </form>
     </div>
   </section>
 
