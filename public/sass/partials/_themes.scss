@@ -1,3 +1,24 @@
+// Standard light theme
+.light-theme {
+  background-color: $color-white !important;
+  color: $color-black !important;
+
+  .jumbotron,
+  footer {
+    background-color: $color-whitesmoke !important;
+  }
+
+  a {
+    color: $color-blue;
+    transition: .5s color ease-in-out;
+
+    &:hover {
+      color: darken($color-blue, 20%);
+    }
+  }
+}
+
+// Optional dark theme
 .dark-theme {
   background-color: $color-black !important;
   color: $color-white !important;
@@ -11,14 +32,23 @@
     color: $color-black !important;
     background-color: $color-whitesmoke !important;
   }
+
+  a {
+    color: $color-orange;
+    transition: .5s color ease-in-out;
+
+    &:hover {
+      color: darken($color-orange, 20%);
+    }
+  }
+
+  // .btn-primary {
+  //   background-color: $color-orange !important;
+  // }
 }
 
-.light-theme {
-  background-color: $color-white !important;
-  color: $color-black !important;
-
-  .jumbotron,
-  footer {
-    background-color: $color-whitesmoke !important;
-  }
+// Inverted colours theme
+.inverted-theme {
+	filter: invert(100%);
+  -webkit-filter: invert(100%);
 }

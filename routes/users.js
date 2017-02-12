@@ -57,7 +57,24 @@ router.post('/toggleTheme/:user_id', function(req, res) {
       if (err) {
         res.send(err);
       } else {
-        res.redirect('/settings/:user_id');
+        res.redirect('/settings/' + user.user_id);
+      }
+    });
+  });
+});
+
+router.post('/toggleInverted/:user_id', function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+    if (user.inverted) {
+      user.inverted = false;
+    } else {
+      user.inverted = true;
+    }
+    user.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/settings/' + user.user_id);
       }
     });
   });

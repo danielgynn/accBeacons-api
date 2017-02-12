@@ -12,7 +12,7 @@
     <script src="/javascripts/index.js"></script>
   </head>
 
-  <body class="{{#if user.darkTheme}}dark-theme{{else}}light-theme{{/if}}">
+  <body class="{{#if user.darkTheme}}dark-theme{{else}}light-theme{{/if}} {{#if user.inverted}}inverted-theme{{/if}}">
     {{> navigation}}
     <main class="container">
       {{{body}}}

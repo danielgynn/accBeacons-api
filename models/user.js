@@ -11,6 +11,7 @@ var userSchema = mongoose.Schema({
   phoneNumber: String,
   admin: Boolean,
   darkTheme: Boolean,
+  inverted: Boolean,
   favourites: [{
     location: {
       type: ObjectId,

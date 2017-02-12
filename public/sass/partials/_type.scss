@@ -4,11 +4,17 @@ body {
 }
 
 a {
-  color: $color-blue;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 ul {
   padding-left: 0;
+}
+
+.large-text {
+  font-size: 1.5rem;
 }
 
 .justify {
