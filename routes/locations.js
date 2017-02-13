@@ -10,6 +10,7 @@ var configDB = require('../config/database.js');
 
 router.get('/locations', isLoggedIn, function(req, res) {
   Location.find(function(err, locations) {
+    var length = locations.length;
     if (err) {
       res.send(err);
     } else {
@@ -18,6 +19,7 @@ router.get('/locations', isLoggedIn, function(req, res) {
         title: 'Accessible Beacons',
         user: req.user,
         locations: locations,
+        locationsTotal: length,
         locationLink: 'locations/' + locations._id
       })
     }
