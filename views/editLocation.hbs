@@ -10,18 +10,18 @@
       <input type="hidden" name="_method" value="PUT">
 
       <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" name="name" value="{{location.name}}" autofocus="true" />
+        <label for="loc-name">Name</label>
+        <input id="loc-name" type="text" class="form-control" name="name" value="{{location.name}}" autofocus="true" />
       </div>
 
       <div class="form-group">
-        <label>Description</label>
-        <textarea class="form-control" rows="3" name="text">
+        <label for="loc-desc">Description</label>
+        <textarea id="loc-desc" class="form-control" rows="3" name="text">
           {{location.text}}
         </textarea>
       </div>
 
-      <div>
+      <div class="form-group">
         <input type="submit" class="btn btn-primary form-control" value="Edit" />
       </div>
     </form>

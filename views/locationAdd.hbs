@@ -10,16 +10,16 @@
     <form action="/locations" method="post">
 
       <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" name="name" autofocus="true" />
+        <label for="loc-name">Name</label>
+        <input id="loc-name" type="text" class="form-control" name="name" autofocus="true" />
       </div>
 
       <div class="form-group">
-        <label>Description</label>
-        <textarea class="form-control" rows="3" name="text"></textarea>
+        <label for="loc-desc">Description</label>
+        <textarea id="loc-desc" class="form-control" rows="8" name="text"></textarea>
       </div>
 
-      <div>
+      <div class="form-group">
         <input type="submit" class="btn btn-primary form-control" value="Submit" />
       </div>
     </form>
