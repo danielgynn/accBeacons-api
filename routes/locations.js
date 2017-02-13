@@ -61,7 +61,7 @@ router.get('/locations/:location_id', isLoggedIn, function(req, res) {
         layout: './partials/layout',
         title: 'Accessible Beacons',
         user: req.user,
-        pbxNumber: '1227806309',
+        pbxNumber: '01227806309',
         location: location
       })
     }
