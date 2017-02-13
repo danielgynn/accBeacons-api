@@ -1,6 +1,10 @@
 <section class="col-sm-8 col-sm-offset-2">
   <header class="text-center">
     <h1 class="text-center">Locations</h1>
+    <!-- <form action="/sortLocations" method="post">
+      <input type="hidden" name="_method" value="post">
+      <button type="submit">Sort Alphabetically</button>
+    </form> -->
   </header>
 
   <hr />
@@ -13,8 +17,8 @@
   <div>
     <ul>
       {{#each locations}}
-        <li class="truncate">
-          <a href="locations/{{this._id}}">{{this.name}} ({{this.extNumber}})</a> - {{this.text}}
+        <li class="truncate large-text">
+          <a href="locations/{{this._id}}">({{this.extNumber}})</a> - {{this.name}}
         </li>
       {{/each}}
     </ul>
