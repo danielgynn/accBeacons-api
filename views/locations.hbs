@@ -1,14 +1,13 @@
-<section class="col-sm-8 col-sm-offset-2">
-  <header class="text-center">
-    <h1 class="text-center">Locations</h1>
-    <!-- <form action="/sortLocations" method="post">
-      <input type="hidden" name="_method" value="post">
-      <button type="submit">Sort Alphabetically</button>
-    </form> -->
-  </header>
-
+<header class="text-center" role="banner">
+  <h1 class="text-center">Locations</h1>
+  <!-- <form action="/sortLocations" method="post">
+    <input type="hidden" name="_method" value="post">
+    <button type="submit">Sort Alphabetically</button>
+  </form> -->
   <hr />
+</header>
 
+<section class="col-sm-8 col-sm-offset-2" role="region">
   {{#if user.admin}}
     <a class="btn btn-default" href="/locationAdd" role="button">Add a new Location</a>
     <hr />

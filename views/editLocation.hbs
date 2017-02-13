@@ -1,10 +1,10 @@
-<section class="col-sm-8 col-sm-offset-2">
-  <header class="text-center">
-    <h1>Edit {{location.name}}</h1>
-    <a href="/profile">Back to {{location.name}}</a>
-    <hr>
-  </header>
+<header class="text-center" role="banner">
+  <h1>Edit {{location.name}}</h1>
+  <a href="/profile">Back to {{location.name}}</a>
+  <hr />
+</header>
 
+<section class="col-sm-8 col-sm-offset-2" role="region">
   <div class="col-sm-8 col-sm-offset-2">
     <form action="/editLocation/{{location._id}}" method="post">
       <input type="hidden" name="_method" value="PUT">

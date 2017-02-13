@@ -1,11 +1,11 @@
-<section class="col-sm-8 col-sm-offset-2">
-  <header class="text-center">
-    <h1>{{user.name}}</h1>
-    <h4>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</h4>
-    <img src="https://avatars.io/gravatar/{{user.email}}" class="img-circle">
-    <hr>
-  </header>
+<header class="text-center" role="banner">
+  <h1>{{user.name}}</h1>
+  <h4>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</h4>
+  <img src="https://avatars.io/gravatar/{{user.email}}" class="img-circle">
+  <hr />
+</header>
 
+<section class="col-sm-8 col-sm-offset-2" role="region">
   <div class="text-center">
     <div class="flex-wrapper flex-items-center">
       <a class="profile-link" href="/settings/{{user._id}}"><i class="fa fa-cogs"></i> Edit Settings</a>

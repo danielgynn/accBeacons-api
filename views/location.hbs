@@ -1,14 +1,13 @@
-<section class="col-sm-8 col-sm-offset-2">
-  <header class="text-center">
-    <h1>{{location.name}}</h1>
-    {{#if location.extNumber}}
-      <h4><strong>Extension Number: </strong>{{location.extNumber}}</h4>
-    {{/if}}
-    <h4><strong>Beacon ID: </strong>{{#if location.beaconID}}{{location.beaconID}}{{else}}Not Yet Identified{{/if}}</h4>
-  </header>
-
+<header class="text-center" role="banner">
+  <h1>{{location.name}}</h1>
+  {{#if location.extNumber}}
+    <h4><strong>Extension Number: </strong>{{location.extNumber}}</h4>
+  {{/if}}
+  <h4><strong>Beacon ID: </strong>{{#if location.beaconID}}{{location.beaconID}}{{else}}Not Yet Identified{{/if}}</h4>
   <hr />
+</header>
 
+<section class="col-sm-8 col-sm-offset-2" role="region">
   <div class="flex-wrapper flex-space">
     <div class="flex-wrapper flex-left">
       <button class="btn">Send Information</button>

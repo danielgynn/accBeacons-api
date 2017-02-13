@@ -14,7 +14,7 @@
 
   <body class="{{#if user.darkTheme}}dark-theme{{else}}light-theme{{/if}} {{#if user.inverted}}inverted-theme{{/if}}">
     {{> navigation}}
-    <main class="container">
+    <main class="container" role="main">
       {{{body}}}
       <div class="push"></div>
     </main>
