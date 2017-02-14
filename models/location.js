@@ -8,6 +8,8 @@ var locationSchema = mongoose.Schema({
   text: String,
   beaconID: String,
   extNumber: Number,
+  mapURL: String,
+  phoneNumber: String,
   user: {
     type: ObjectId,
     ref: "User",

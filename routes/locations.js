@@ -93,6 +93,8 @@ router.post('/editLocation/:location_id', function(req, res) {
 
     // Update user data
     location.name = req.param('name');
+    location.mapURL = req.param('mapURL');
+    location.phoneNumber = req.param('phoneNumber');
     location.text = req.param('text');
 
     // save the location

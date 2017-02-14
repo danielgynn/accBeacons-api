@@ -1,6 +1,6 @@
 <header class="text-center" role="banner">
   <h1>Edit {{location.name}}</h1>
-  <a href="/profile">Back to {{location.name}}</a>
+  <a href="/locations/{{location._id}}">Back to {{location.name}}</a>
   <hr />
 </header>
 
@@ -11,18 +11,26 @@
 
       <div class="form-group">
         <label for="loc-name">Name</label>
-        <input id="loc-name" type="text" class="form-control" name="name" value="{{location.name}}" autofocus="true" />
+        <input id="loc-name" type="text" name="name" value="{{location.name}}" autofocus="true" />
+      </div>
+
+      <div class="form-group">
+        <label for="loc-map">Google Maps URL</label>
+        <input id="loc-map" type="text" name="mapURL" value="{{location.mapURL}}" autofocus="true" />
+      </div>
+
+      <div class="form-group">
+        <label for="loc-number">Telephone Number</label>
+        <input id="loc-number" type="text" name="phoneNumber" value="{{location.phoneNumber}}" autofocus="true" />
       </div>
 
       <div class="form-group">
         <label for="loc-desc">Description</label>
-        <textarea id="loc-desc" class="form-control" rows="3" name="text">
-          {{location.text}}
-        </textarea>
+        <textarea id="loc-desc" rows="12" name="text">{{location.text}}</textarea>
       </div>
 
       <div class="form-group">
-        <input type="submit" class="btn btn-primary form-control" value="Edit" />
+        <button type="submit" class="button btn-primary width-100" value="Edit">Save Edits</button>
       </div>
     </form>
   </div>

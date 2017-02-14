@@ -3,36 +3,61 @@
   {{#if location.extNumber}}
     <h4><strong>Extension Number: </strong>{{location.extNumber}}</h4>
   {{/if}}
-  <h4><strong>Beacon ID: </strong>{{#if location.beaconID}}{{location.beaconID}}{{else}}Not Yet Identified{{/if}}</h4>
+  <h4><strong>Beacon ID: </strong>{{#if location.beaconID}}{{location.beaconID}}{{else}}Not Identified{{/if}}</h4>
   <hr />
 </header>
 
 <section class="col-sm-8 col-sm-offset-2" role="region">
-  <div class="flex-wrapper flex-space">
-    <div class="flex-wrapper flex-left">
-      <button class="btn">Send Information</button>
-      <form action="/favourite/{{location._id}}/{{user._id}}" method="post">
-        <input type="hidden" name="_method" value="put">
-        <button type="submit" class="btn btn-warning"><i class="fa fa-star"></i> Save</button>
-      </form>
-    </div>
-
-    <div class="flex-wrapper flex-right">
-      {{#if user.admin}}
-        <a class="btn btn-primary" href="/editLocation/{{location._id}}">Edit</a>
-        <form action="/deleteLocation/{{location._id}}" method="post">
-          <input type="hidden" name="_method" value="delete">
-          <button type="submit" class="btn btn-danger">Delete</button>
+  <div class="col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-2">
+    <div class="flex-wrapper flex-space flex-items-center location-btns">
+      <div class="flex-wrapper flex-left">
+        <form action="/favourite/{{location._id}}/{{user._id}}" method="post">
+          <input type="hidden" name="_method" value="put">
+          <button type="submit" class="profile-link btn-warning"><i class="fa fa-star"></i> Save</button>
         </form>
+      </div>
+
+      {{#if user.admin}}
+        <div class="flex-right">
+          <a class="profile-link button btn-primary" href="/editLocation/{{location._id}}"><i class="fa fa-pencil"></i> Edit</a>
+
+          <form action="/deleteLocation/{{location._id}}" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="profile-link btn-danger"><i class="fa fa-trash"></i> Delete</button>
+          </form>
+        </div>
       {{/if}}
     </div>
+    <hr />
   </div>
 
-  <hr />
-
-  <div class="col-sm-8 col-sm-offset-2">
+  <div class="col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-2">
     <label for="loc-desc">Description</label>
     <p class="justify" id="loc-desc">{{location.text}}</p>
+    <hr />
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-2">
+    <div class="form-group">
+      <label for="loc-map">Google Maps URL</label>
+      <p>
+        {{#if location.mapURL}}
+          <a id="loc-map" href="{{location.mapURL}}">{{location.mapURL}}</a>
+        {{else}}
+          N/A - <a href="/editLocation/{{location._id}}">Add One?</a>
+        {{/if}}
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="loc-number">Telephone Number</label>
+      <p>
+        {{#if location.phoneNumber}}
+          <a id="loc-number" href="tel:{{location.phoneNumber}}">{{location.phoneNumber}}</a>
+        {{else}}
+          N/A - <a href="/editLocation/{{location._id}}">Add One?</a>
+        {{/if}}
+      </p>
+    </div>
   </div>
 
   <div class="col-sm-8 col-sm-offset-2">
