@@ -80,6 +80,23 @@ router.post('/toggleInverted/:user_id', function(req, res) {
   });
 });
 
+router.post('/toggleLargeText/:user_id', function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+    if (user.largeFont) {
+      user.largeFont = false;
+    } else {
+      user.largeFont = true;
+    }
+    user.save(function(err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/settings/' + user.user_id);
+      }
+    });
+  });
+});
+
 module.exports = router;
 
 function isLoggedIn(req, res, next) {

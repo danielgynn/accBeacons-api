@@ -12,6 +12,7 @@ var userSchema = mongoose.Schema({
   admin: Boolean,
   darkTheme: Boolean,
   inverted: Boolean,
+  largeFont: Boolean,
   favourites: [{
     location: {
       type: ObjectId,

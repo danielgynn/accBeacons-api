@@ -14,7 +14,7 @@
 
       <div class="form-group">
         <label for="email-edit">Email</label>
-        <input type="text" id="email-edit" name="email" value="{{user.email}}" autofocus="true" />
+        <input type="email" id="email-edit" name="email" value="{{user.email}}" autofocus="true" />
       </div>
 
       <div class="form-group">
@@ -24,7 +24,7 @@
 
       <div class="form-group">
         <label for="phone-number-edit">Phone Number</label>
-        <input type="text" id="phone-number-edit" name="phoneNumber" value="{{user.phoneNumber}}" />
+        <input type="tel" id="phone-number-edit" name="phoneNumber" value="{{user.phoneNumber}}" />
       </div>
 
       <div class="form-group">
@@ -51,6 +51,15 @@
         <input type="hidden" name="_method" value="put">
         <button type="submit" class="{{#if user.darkTheme}}btn-default{{else}}btn-primary{{/if}} width-100">
           {{#if user.inverted}}Revert{{else}}Invert{{/if}} Colours
+        </button>
+      </form>
+    </div>
+    <div class="form-group">
+      <label for="large-text-btn">Increase Font Size</label>
+      <form id="large-text-btn" action="/toggleLargeText/{{user._id}}" method="post" class="flex-wrapper flex-items-center">
+        <input type="hidden" name="_method" value="put">
+        <button type="submit" class="{{#if user.darkTheme}}btn-default{{else}}btn-primary{{/if}} width-100">
+          Use {{#if user.largeFont}}Small{{else}}Large{{/if}} Font
         </button>
       </form>
     </div>

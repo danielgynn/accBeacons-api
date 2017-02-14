@@ -3,6 +3,10 @@ body {
   font-family: $font-roboto;
 }
 
+.large-font {
+  font-size: 2rem !important;
+}
+
 a {
   &:hover {
     text-decoration: none;
