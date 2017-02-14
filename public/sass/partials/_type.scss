@@ -1,10 +1,7 @@
+html,
 body {
   font-size: 14px;
   font-family: $font-roboto;
-}
-
-.large-font {
-  font-size: 2rem !important;
 }
 
 a {
@@ -18,7 +15,7 @@ ul {
 }
 
 .large-text {
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 .justify {

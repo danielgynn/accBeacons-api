@@ -1,3 +1,7 @@
+{{#if message}}
+  <div class="alert-banner alert-success visible">{{message}} {{> close-button}}</div>
+{{/if}}
+
 <header class="text-center" role="banner">
   <h1>{{user.name}}</h1>
   <h4>{{#if user.admin}}Admin{{else}}Standard{{/if}} User</h4>

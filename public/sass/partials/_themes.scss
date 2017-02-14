@@ -52,3 +52,19 @@
 	filter: invert(100%);
   -webkit-filter: invert(100%);
 }
+
+// Increased font size theme
+.large-font {
+  font-size: 2rem !important;
+
+  button,
+  .button,
+  textarea,
+  input {
+    font-size: 2rem !important;
+  }
+
+  .large-text {
+    font-size: 3rem !important;
+  }
+}

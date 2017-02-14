@@ -12,7 +12,8 @@ router.get('/profile', isLoggedIn, function(req, res) {
   res.render('profile',  {
     layout: './partials/layout',
     title: 'Accessible Beacons',
-    user: req.user
+    user: req.user,
+    message: req.flash('settingsMessage')
   })
 });
 
@@ -20,7 +21,8 @@ router.get('/settings/:user_id', isLoggedIn, function(req, res) {
   res.render('settings', {
     layout: './partials/layout',
     title: 'Accessible Beacons',
-    user: req.user
+    user: req.user,
+    message: req.flash('settingsMessage')
   })
 });
 
@@ -40,6 +42,7 @@ router.post('/settings/:user_id', function(req, res) {
       if (err) {
         res.send(err);
       } else {
+        req.flash('settingsMessage', 'Your profile has been updated successfully.');
         res.redirect('/profile');
       }
     });
@@ -57,6 +60,7 @@ router.post('/toggleTheme/:user_id', function(req, res) {
       if (err) {
         res.send(err);
       } else {
+        req.flash('settingsMessage', 'Your theme preferences have been saved successfully.');
         res.redirect('/settings/' + user.user_id);
       }
     });
@@ -74,6 +78,7 @@ router.post('/toggleInverted/:user_id', function(req, res) {
       if (err) {
         res.send(err);
       } else {
+        req.flash('settingsMessage', 'Your preferences for colour inversion have been saved successfully.');
         res.redirect('/settings/' + user.user_id);
       }
     });
@@ -91,6 +96,7 @@ router.post('/toggleLargeText/:user_id', function(req, res) {
       if (err) {
         res.send(err);
       } else {
+        req.flash('settingsMessage', 'Your font size preferences have been saved successfully.');
         res.redirect('/settings/' + user.user_id);
       }
     });
