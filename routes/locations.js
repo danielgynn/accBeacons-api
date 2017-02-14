@@ -64,22 +64,8 @@ router.get('/locations/:location_id', isLoggedIn, function(req, res) {
         title: 'Accessible Beacons',
         user: req.user,
         pbxNumber: '01227806309',
-        location: location
-      })
-    }
-  });
-});
-
-router.get('/editLocation/:location_id', isLoggedIn, function(req, res) {
-  Location.findById(req.params.location_id, function(err, location) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.render('editLocation',  {
-        layout: './partials/layout',
-        title: 'Accessible Beacons',
-        user: req.user,
-        location: location
+        location: location,
+        message: req.flash('editMessage')
       })
     }
   });
@@ -102,9 +88,25 @@ router.post('/editLocation/:location_id', function(req, res) {
       if (err) {
         res.send(err);
       } else {
-        res.redirect('/locations');
+        req.flash('editMessage', 'Your changes have been saved successfully.');
+        res.redirect('/locations/' + req.params.location_id);
       }
     });
+  });
+});
+
+router.get('/editLocation/:location_id', isLoggedIn, function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.render('editLocation',  {
+        layout: './partials/layout',
+        title: 'Accessible Beacons',
+        user: req.user,
+        location: location
+      })
+    }
   });
 });
 

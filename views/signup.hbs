@@ -5,7 +5,7 @@
 
 <section class="col-sm-8 col-sm-offset-2" role="region">
   {{#if message}}
-    <div class="alert-danger">{{message}}</div>
+    <div class="alert-banner alert-danger visible">{{message}} {{> close-button}}</div>
   {{/if}}
 
   <form class="col-sm-8 col-sm-offset-2" action="/signup" method="post">

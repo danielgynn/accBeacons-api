@@ -5,13 +5,13 @@
 
 <section class="col-sm-8 col-sm-offset-2" role="region">
   {{#if message}}
-  	<div class="alert-danger">{{message}}</div>
+  	<div class="alert-banner alert-danger visible">{{message}} {{> close-button}}</div>
   {{/if}}
 
   <form class="col-sm-8 col-sm-offset-2" action="/login" method="post">
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" id="email" placeholder="Enter your email..." name="email" autofocus="true" />
+      <input type="email" id="email" placeholder="Enter your email..." name="email" autofocus="true" />
     </div>
     <div class="form-group">
       <label for="password">Password</label>

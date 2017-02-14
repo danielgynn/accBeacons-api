@@ -4,7 +4,7 @@
 
   {{#if user}}
     {{#unless user.phoneNumber}}
-      <div class="message-banner">
+      <div class="message-banner alert-danger">
         <p>Please go to <a href="/settings/{{user._id}}">Settings</a> to add your phone number.</p>
       </div>
     {{/unless}}

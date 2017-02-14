@@ -86,15 +86,21 @@ footer {
   width: 100%;
 }
 
-.alert-danger {
+.alert-danger,
+.alert-success {
   padding: 1rem;
+  border-radius: 2px;
   margin: 1rem auto;
   text-align: center;
 }
 
+.alert-banner {
+  opacity: 0;
+  display: none;
+}
+
 .message-banner {
   padding: 1rem;
-  background-color: $color-blue;
   color: $color-white;
   align-items: center;
   display: flex;
