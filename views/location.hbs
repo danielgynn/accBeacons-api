@@ -67,11 +67,10 @@
   <div class="col-sm-12 col-md-10 col-sm-offset-0 col-md-offset-1">
     <hr />
     <div class="form-group">
-      <label for="send-btn">Send Data from {{pbxNumber}}</label>
-      <form class="flex-wrapper flex-items-center">
-        <a class="button btn-success width-100" id="send-btn" href="tel:{{pbxNumber}}">
-          Send a Call
-        </a>
+      <label for="send-btn">Send Data from <strong>{{pbxNumber}}</strong> to <strong>{{user.phoneNumber}}</strong>.</label>
+      <form action="/sendCall/{{location._id}}/{{user._id}}" method="post">
+        <input type="hidden" name="_method" value="post">
+        <button type="submit" class="btn-success width-100">Send Call</button>
       </form>
     </div>
   </div>

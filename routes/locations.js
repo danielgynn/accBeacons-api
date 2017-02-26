@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var http = require('http');
 
 var Location = require('../models/location');
 var User = require('../models/user');
@@ -149,16 +150,30 @@ router.post('/favourite/:location_id/:user_id', function(req, res) {
   });
 });
 
-// router.post('/sortLocations', function(req, res) {
-//   Location.find(function(err, locations) {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       Location.sort();
-//       res.redirect('/locations');
-//     }
-//   });
-// })
+router.post("/sendCall/:location_id/:user_id", function(req, res) {
+  Location.findById(req.params.location_id, function(err, location) {
+    User.findById(req.params.user_id, function(err, user) {
+      req.flash('editMessage', 'This feature is currently in development.');
+      // req.send(location.extNumber);
+      console.log(location.extNumber);
+      res.redirect('/locations/' + req.params.location_id);
+      // var proxyRequest = http.request({
+      //     host: '192.12.44.193',
+      //     port: 9000,
+      //     method: 'POST',
+      //     path: '/extensions/receiveCall'
+      //   },
+      //   function (proxyResponse) {
+      //     proxyResponse.on('data', function (chunk) {
+      //       res.send(chunk);
+      //     });
+      //   });
+      //
+      // proxyRequest.write(res.body);
+      // proxyRequest.end();
+    });
+  });
+});
 
  module.exports = router;
 
