@@ -144,8 +144,8 @@ router.put('/api/users/:user_id', function(req, res) {
 
  module.exports = router;
 
- function isLoggedIn(req, res, next) {
-   if (req.isAuthenticated())
-       return next();
-   res.redirect('/');
- }
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.redirect('/');
+}

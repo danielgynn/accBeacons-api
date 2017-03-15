@@ -68,8 +68,8 @@
     <hr />
     <div class="form-group">
       <label for="send-btn">Send Data from <strong>{{pbxNumber}}</strong> to <strong>{{user.phoneNumber}}</strong>.</label>
-      <form action="/sendCall/{{location._id}}/{{user._id}}" method="post">
-        <input type="hidden" name="_method" value="post">
+      <form action="/sendCall/{{location._id}}/{{user._id}}" method="get">
+        <input type="hidden" name="_method" value="get">
         <button type="submit" class="btn-success width-100">Send Call</button>
       </form>
     </div>

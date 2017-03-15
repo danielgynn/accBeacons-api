@@ -150,27 +150,23 @@ router.post('/favourite/:location_id/:user_id', function(req, res) {
   });
 });
 
-router.post("/sendCall/:location_id/:user_id", function(req, res) {
+router.get('/sendCall/:location_id/:user_id', function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
-    User.findById(req.params.user_id, function(err, user) {
-      req.flash('editMessage', 'This feature is currently in development.');
-      // req.send(location.extNumber);
-      console.log(location.extNumber);
-      res.redirect('/locations/' + req.params.location_id);
-      // var proxyRequest = http.request({
-      //     host: '192.12.44.193',
-      //     port: 9000,
-      //     method: 'POST',
-      //     path: '/extensions/receiveCall'
-      //   },
-      //   function (proxyResponse) {
-      //     proxyResponse.on('data', function (chunk) {
-      //       res.send(chunk);
-      //     });
-      //   });
-      //
-      // proxyRequest.write(res.body);
-      // proxyRequest.end();
+    Location.findById(req.params.location_id, {
+      $push: {
+        'data': {
+          extNumber: location.extNumber
+        }
+      }
+    }, function(err, data) {
+      if (err) {
+        res.send(err);
+        req.flash('editMessage', 'The call has failed.');
+      } else {
+        res.send(data);
+        console.log(data);
+        req.flash('editMessage', 'The call has been sent.');
+      }
     });
   });
 });
