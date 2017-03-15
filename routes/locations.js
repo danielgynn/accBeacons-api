@@ -152,13 +152,11 @@ router.post('/favourite/:location_id/:user_id', function(req, res) {
 
 router.get('/sendCall/:location_id/:user_id', function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
-    Location.findById(req.params.location_id, {
-      $push: {
-        'data': {
-          extNumber: location.extNumber
-        }
+    User.findById(req.params.user_id, function(err, user) {
+      const data = {
+        extNumber: location.extNumber,
+        phoneNumber: user.phoneNumber
       }
-    }, function(err, data) {
       if (err) {
         res.send(err);
         req.flash('editMessage', 'The call has failed.');
