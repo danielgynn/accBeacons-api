@@ -41,10 +41,6 @@
       color: darken($color-orange, 20%);
     }
   }
-
-  // .btn-primary {
-  //   background-color: $color-orange !important;
-  // }
 }
 
 // Inverted colours theme
@@ -66,5 +62,6 @@
 
   .large-text {
     font-size: 3rem !important;
+    white-space: initial;
   }
 }
