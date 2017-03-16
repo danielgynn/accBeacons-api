@@ -151,43 +151,32 @@ router.post('/favourite/:location_id/:user_id', function(req, res) {
   });
 });
 
-router.get('/call/:extNumber/:phoneNumber', function(req, res) {
+router.get('/call/:location_id/:phoneNumber', function(req, res) {
   const data = querystring.stringify({
     phoneNumber: req.params.phoneNumber,
-    extNumber: req.params.extNumber
+    extNumber: req.params.location_id
   });
 
   var options = {
     host: 'danielknox.ddns.net',
-    port: 8080,
-    path: '/call',
-    method: 'POST',
+    port: '8080',
+    path: '/call?phoneNumber=' + req.params.phoneNumber + '&extensionID=' + req.params.location_id,
+    method: 'GET',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': Buffer.byteLength(data)
+      'Content-Type': 'application/json',
     }
   };
 
-  res.send(data);
+  callback = function(res) {
+    res.on('data', function(chunk) {
+      console.log(chunk);
+    });
+    res.on('end', function() {
+      console.log('end');
+    })
+  }
 
-  // var httpReq = http.request(options, function(res) {
-  //   res.setEncoding('utf8');
-  //   res.on('data', function (chunk) {
-  //     console.log("body: " + chunk);
-  //   });
-  //   res.on('end', function() {
-  //     res.send('ok');
-  //   })
-  // });
-
-  // httpReq.write(data);
-  // httpReq.end();
-
-  // http.get(options, function(res) {
-  //   res.write(data);
-  // }).on('end', function() {
-  //   res.end();
-  // });
+  http.request(options, callback).end();
 
   // Redirect
   // if (err) {
