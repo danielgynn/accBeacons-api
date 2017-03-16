@@ -177,6 +177,7 @@ router.get('/call/:location_id/:phoneNumber', function(req, res) {
   }
 
   http.request(options, callback).end();
+  res.redirect('/locations/' + req.params.location_id);
 
   // Redirect
   // if (err) {
