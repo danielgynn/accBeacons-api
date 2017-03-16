@@ -160,7 +160,7 @@ router.get('/call/:location_id/:phoneNumber', function(req, res) {
   var options = {
     host: 'danielknox.ddns.net',
     port: '8080',
-    path: '/call?phoneNumber=' + req.params.phoneNumber + '&extensionID=' + req.params.location_id,
+    path: '/call?phonenumber=' + req.params.phoneNumber + '&extensionID=' + req.params.location_id,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
