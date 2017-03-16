@@ -3,6 +3,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var http = require('http');
+var querystring = require('querystring');
 
 var Location = require('../models/location');
 var User = require('../models/user');
@@ -150,23 +151,54 @@ router.post('/favourite/:location_id/:user_id', function(req, res) {
   });
 });
 
-router.get('/sendCall/:location_id/:user_id', function(req, res) {
-  Location.findById(req.params.location_id, function(err, location) {
-    User.findById(req.params.user_id, function(err, user) {
-      const data = {
-        extNumber: location.extNumber,
-        phoneNumber: user.phoneNumber
-      }
-      if (err) {
-        res.send(err);
-        req.flash('editMessage', 'The call has failed.');
-      } else {
-        res.send(data);
-        console.log(data);
-        req.flash('editMessage', 'The call has been sent.');
-      }
-    });
+router.get('/call/:extNumber/:phoneNumber', function(req, res) {
+  const data = querystring.stringify({
+    phoneNumber: req.params.phoneNumber,
+    extNumber: req.params.extNumber
   });
+
+  var options = {
+    host: 'danielknox.ddns.net',
+    port: 8080,
+    path: '/call',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(data)
+    }
+  };
+
+  res.send(data);
+
+  // var httpReq = http.request(options, function(res) {
+  //   res.setEncoding('utf8');
+  //   res.on('data', function (chunk) {
+  //     console.log("body: " + chunk);
+  //   });
+  //   res.on('end', function() {
+  //     res.send('ok');
+  //   })
+  // });
+
+  // httpReq.write(data);
+  // httpReq.end();
+
+  // http.get(options, function(res) {
+  //   res.write(data);
+  // }).on('end', function() {
+  //   res.end();
+  // });
+
+  // Redirect
+  // if (err) {
+  //   res.redirect('/locations/' + req.params.location_id);
+  //   console.log(err);
+  //   req.flash('editMessage', 'The call has failed.');
+  // } else {
+  //   res.redirect('/locations/' + req.params.location_id);
+  //   console.log(data);
+  //   req.flash('editMessage', 'The call has been sent.');
+  // }
 });
 
  module.exports = router;
