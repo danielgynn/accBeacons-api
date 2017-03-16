@@ -41,6 +41,15 @@ textarea {
   padding: 8px 15px;
 }
 
+.call-button,
+.ext-button {
+  display: none;
+}
+
+.btn-visible {
+  display: block !important;
+}
+
 input {
   border-radius: 2px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -52,10 +61,6 @@ input {
   padding: 12px;
   width: 100%;
   height: 48px;
-
-  &:focus {
-    // outline: inherit;
-  }
 }
 
 .navbar-inverse {
@@ -92,6 +97,15 @@ footer {
   border-radius: 2px;
   margin: 1rem auto;
   text-align: center;
+  color: $color-white;
+}
+
+.alert-danger {
+  background-color: $color-red !important;
+}
+
+.alert-success {
+  background-color: $color-green !important;
 }
 
 .alert-banner {

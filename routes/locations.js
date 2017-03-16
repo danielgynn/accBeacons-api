@@ -20,6 +20,7 @@ router.get('/locations', isLoggedIn, function(req, res) {
         layout: './partials/layout',
         title: 'Accessible Beacons',
         user: req.user,
+        userNumber: req.user.phoneNumber,
         locations: locations,
         locationsTotal: length,
         locationLink: 'locations/' + locations._id
@@ -67,7 +68,8 @@ router.get('/locations/:location_id', isLoggedIn, function(req, res) {
         user: req.user,
         pbxNumber: '01227806309',
         location: location,
-        message: req.flash('editMessage')
+        message: req.flash('editMessage'),
+        isReady: false
       })
     }
   });
@@ -171,6 +173,7 @@ router.get('/call/:location_id/:phoneNumber', function(req, res) {
     res.on('data', function(chunk) {
       console.log(chunk);
     });
+
     res.on('end', function() {
       console.log('end');
     })
@@ -178,17 +181,6 @@ router.get('/call/:location_id/:phoneNumber', function(req, res) {
 
   http.request(options, callback).end();
   res.redirect('/locations/' + req.params.location_id);
-
-  // Redirect
-  // if (err) {
-  //   res.redirect('/locations/' + req.params.location_id);
-  //   console.log(err);
-  //   req.flash('editMessage', 'The call has failed.');
-  // } else {
-  //   res.redirect('/locations/' + req.params.location_id);
-  //   console.log(data);
-  //   req.flash('editMessage', 'The call has been sent.');
-  // }
 });
 
  module.exports = router;

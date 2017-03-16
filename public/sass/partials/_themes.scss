@@ -38,7 +38,7 @@
     transition: .5s color ease-in-out;
 
     &:hover {
-      color: darken($color-orange, 20%);
+      color: darken($color-orange, 10%);
     }
   }
 }

@@ -68,15 +68,16 @@
     <hr />
     {{#if user.phoneNumber}}
       <div class="form-group">
-        {{!--<label for="send-btn">Send Data from <strong>{{pbxNumber}}</strong> to <strong>{{user.phoneNumber}}</strong>.</label>--}}
+        <label for="send-btn">Send Data to <strong>{{user.phoneNumber}}</strong>.</label>
         <form action="/call/{{location._id}}/{{user.phoneNumber}}" method="get">
           <input type="hidden" name="_method" value="get">
-          <button type="submit" class="btn-success width-100">Use this Extension</button>
+          <button type="submit" class="ext-button btn-visible btn-primary width-100">Use this Extension</button>
         </form>
       </div>
-      <a href="tel:01304897490">Call Now</a>
+      <a class="button width-100 btn-success" href="tel:01304897490"><i class="fa fa-phone"></i> Call Now</a>
     {{else}}
       <p>Please go to <a href="/settings/{{user._id}}">Settings</a> to add your phone number.</p>
+      <button type="submit" class="btn-disabled width-100" disabled=true>Use this Extension</button>
     {{/if}}
   </div>
 </section>
