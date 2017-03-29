@@ -67,16 +67,10 @@ input {
   .navbar-toggle {
     border: 1px solid transparent;
     border-radius: 2px;
-    border-color: $color-whitesmoke !important;
-
-    .icon-bar {
-      background-color: $color-whitesmoke;
-    }
 
     &:hover,
     &:focus {
       background-color: inherit;
-      border-color: $color-white !important;
     }
   }
 }
@@ -99,7 +93,15 @@ footer {
   border-radius: 2px;
   margin: 1rem auto;
   text-align: center;
-  color: $color-white;
+}
+
+.alert-danger {
+  background-color: $color-red !important;
+  color: $color-white !important;
+
+  .fa-times {
+    color: $color-white !important;
+  }
 }
 
 .alert-banner {
