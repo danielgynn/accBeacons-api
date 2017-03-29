@@ -4,6 +4,22 @@ body {
   font-family: $font-roboto;
 }
 
+h1 {
+  font-family: $font-merriweather;
+  font-size: 4rem;
+
+  @media (max-width: 600px) {
+    font-size: 3rem;
+  }
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
 a {
   &:hover {
     text-decoration: none;
@@ -14,7 +30,14 @@ ul {
   padding-left: 0;
 }
 
-label {
+label,
+h4 {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.navbar-brand {
+  font-family: $font-merriweather;
   font-weight: 300;
 }
 

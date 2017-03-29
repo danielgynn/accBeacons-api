@@ -35,10 +35,15 @@ textarea {
   color: $color-white !important;
 }
 
-.location-btns button,
-.location-btns .button {
-  margin: 0;
-  padding: 8px 15px;
+.location-btns {
+  margin-bottom: 1rem;
+
+  button,
+  .button {
+    width: 100px;
+    margin: 0 .5rem;
+    padding: 8px 15px;
+  }
 }
 
 .call-button,
