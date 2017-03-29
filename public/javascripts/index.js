@@ -10,5 +10,3 @@ $(document).ready(function() {
 });
 
 $(".ext-button").addClass($.cookie('call_button'));
-
- 

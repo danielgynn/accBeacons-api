@@ -4,11 +4,23 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var http = require('http');
 var querystring = require('querystring');
+var marked = require('marked');
 
 var Location = require('../models/location');
 var User = require('../models/user');
 var router = express.Router();
 var configDB = require('../config/database.js');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+});
 
 router.get('/locations', isLoggedIn, function(req, res) {
   Location.find(function(err, locations) {
@@ -62,12 +74,23 @@ router.get('/locations/:location_id', isLoggedIn, function(req, res) {
     if (err) {
       res.send(err);
     } else {
+      var markdownString = location.text;
+
+      var description = marked(markdownString, function (err, content) {
+        if (err) {
+          throw err;
+        } else {
+          return content;
+        }
+      });
+
       res.render('location',  {
         layout: './partials/layout',
         title: 'Accessible Beacons',
         user: req.user,
         pbxNumber: '01227806309',
         location: location,
+        description: description,
         message: req.flash('editMessage'),
         isReady: false
       })
