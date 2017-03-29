@@ -18,7 +18,7 @@
 
   .jumbotron,
   footer {
-    background-color: lighten($color-white, 10%) !important;
+    background-color: darken($color-white, 10%) !important;
   }
 
   input {
