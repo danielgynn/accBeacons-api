@@ -13,13 +13,13 @@
     <script src="/javascripts/index.js"></script>
   </head>
 
-  <body class="{{#if user.darkTheme}}dark-theme{{else}}light-theme{{/if}} {{#if user.inverted}}inverted-theme{{/if}} {{#if user.largeFont}}large-font{{/if}}">
+  <body class="{{#if user.darkTheme}}light-theme{{else}}dark-theme{{/if}} {{#if user.inverted}}inverted-theme{{/if}} {{#if user.largeFont}}large-font{{/if}}">
     {{> navigation}}
     <main class="container" role="main">
       {{{body}}}
       <div class="push"></div>
     </main>
-    {{> footer}}
+    <!-- {{> footer}} -->
   </body>
 
 </html>

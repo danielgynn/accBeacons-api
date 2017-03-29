@@ -9,7 +9,7 @@
     <ul>
       {{#each user.favourites}}
         <li class="truncate large-text">
-          <a href="locations/{{this.location}}">{{this.data.name}} ({{this.data.extNumber}})</a> - {{this.data.text}}
+          <a class="button btn btn-primary width-100" href="locations/{{this._id}}">{{this.data.name}} - {{this.data.extNumber}}</a>
         </li>
       {{/each}}
     </ul>

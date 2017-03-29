@@ -93,19 +93,13 @@ footer {
 
 .alert-danger,
 .alert-success {
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   border-radius: 2px;
   margin: 1rem auto;
   text-align: center;
   color: $color-white;
-}
-
-.alert-danger {
-  background-color: $color-red !important;
-}
-
-.alert-success {
-  background-color: $color-green !important;
 }
 
 .alert-banner {

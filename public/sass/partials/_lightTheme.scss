@@ -1,0 +1,62 @@
+// Standard light theme
+.light-theme {
+  background-color: $color-white !important;
+  color: $color-navy !important;
+
+  .navbar-inverse {
+    background-color: darken($color-navy, 10%) !important;
+    border-color: $color-navy !important;
+
+    a {
+      color: $color-white !important;
+    }
+  }
+
+  .navbar-inverse .navbar-toggle {
+    border-color: $color-yellow !important;
+  }
+
+  .jumbotron,
+  footer {
+    background-color: lighten($color-white, 10%) !important;
+  }
+
+  input {
+    color: $color-navy !important;
+    background-color: $color-white !important;
+  }
+
+  a, {
+    color: $color-blue !important;
+    transition: .5s color ease-in-out;
+
+    &:hover {
+      color: darken($color-blue, 10%);
+    }
+  }
+
+  button,
+  .button {
+    background-color: $color-blue !important;
+    border-color: $color-white !important;
+    color: $color-white !important;
+    transition: .5s background-color ease-in-out;
+
+    &:hover {
+      background-color: darken($color-blue, 10%) !important;
+    }
+  }
+
+  .icon-bar {
+    background-color: $color-navy !important;
+  }
+
+  .alert-success {
+    background-color: $color-navy !important;
+    color: $color-white !important;
+
+    .fa-times {
+      color: $color-white !important;
+    }
+  }
+}

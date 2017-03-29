@@ -45,7 +45,7 @@
       <form id="theme-btn" action="/toggleTheme/{{user._id}}" method="post" class="flex-wrapper flex-items-center">
         <input type="hidden" name="_method" value="put">
         <button type="submit" class="{{#if user.darkTheme}}btn-default{{else}}btn-primary{{/if}} width-100">
-          Switch to {{#if user.darkTheme}}Light {{else}}Dark {{/if}}Theme
+          Switch to {{#if user.darkTheme}}Dark {{else}}Light {{/if}}Theme
         </button>
       </form>
     </div>
