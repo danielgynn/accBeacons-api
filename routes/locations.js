@@ -122,6 +122,7 @@ router.post('/editLocation/:location_id', function(req, res) {
   });
 });
 
+// Find the locaiton to edit by the id and render the editLocation template
 router.get('/editLocation/:location_id', isLoggedIn, function(req, res) {
   Location.findById(req.params.location_id, function(err, location) {
     if (err) {
